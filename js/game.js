@@ -28,7 +28,7 @@ const game = new Phaser.Game(config)
 
 
 // load scenes
-game.scene.start("splashScene", splashScene)
+game.scene.add('splashScene', splashScene)
 
 // start scene
-game.scene.start("splashScene")
+game.scene.start('splashScene')
