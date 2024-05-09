@@ -4,6 +4,7 @@ class SplashScene extends Phaser.Scene {
     super({key: "splashScene"})
 
     this.splashSceneBackgroundImage = null
+    this.introAudio
   }
   init(data) {
     this.cameras.main.setBackgroundColor('#ffffff')
@@ -11,6 +12,7 @@ class SplashScene extends Phaser.Scene {
   preload() {
     console.log("Splash Scene")
     this.load.image('splashSceneBackground', './assets/splashSceneImage.png')
+    this.load.audio('introAudio', './assets/introAudio.mp3')
   }
 
 
@@ -18,10 +20,12 @@ class SplashScene extends Phaser.Scene {
     this.splashSceneBackgroundImage = this.add.sprite(0, 0, 'splashSceneBackground').setScale(2)
     this.splashSceneBackgroundImage.x = 1920 / 2
     this.splashSceneBackgroundImage.y = 1080 / 2
+    this.music = this.sound.add('introAudio')
+    this.music.play()
   }
   update(time, delta) {
-    if (time > 3000) {
-      this.scene.switch('gooseScene', { fadeIn: true })
+    if (time > 8000) {
+      this.scene.switch('gooseScene')
     }  
   } 
 }
