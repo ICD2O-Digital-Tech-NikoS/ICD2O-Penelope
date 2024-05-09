@@ -12,7 +12,7 @@ const titleScene = new TitleScene()
 const gooseScene = new GooseScene()
 const gameScene = new GameScene()
 const menuScene = new MenuScene()
-// game scene
+// game configuration settings
 const config = {
   type: Phaser.AUTO,
   width: 1920,

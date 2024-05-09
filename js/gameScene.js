@@ -2,7 +2,7 @@
 // class for the game scene
 class GameScene extends Phaser.Scene {
   
-  //constructs keywords
+  //method that constructs keywords
   constructor() {
     super({key: "gameScene"})
   }
@@ -10,12 +10,13 @@ class GameScene extends Phaser.Scene {
     // sets the background color
     this.cameras.main.setBackgroundColor('#1111f')
   }
+  // used to load assets
   preload() {
     // really just to check if stuff is working
     console.log("Game Scene")
   }
 
-
+  // used to create game objects and add specifications
   create(data) {
    
   }
