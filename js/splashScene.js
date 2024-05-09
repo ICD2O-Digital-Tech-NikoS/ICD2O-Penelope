@@ -1,5 +1,8 @@
-class SplashScene extends Phaser.Scene {
 
+
+class SplashScene extends Phaser.Scene {
+  
+  //method that constructs keywords
   constructor() {
     super({key: "splashScene"})
 
@@ -7,6 +10,7 @@ class SplashScene extends Phaser.Scene {
     this.introAudio
   }
   init(data) {
+    // sets the background color
     this.cameras.main.setBackgroundColor('#ffffff')
   }
   preload() {

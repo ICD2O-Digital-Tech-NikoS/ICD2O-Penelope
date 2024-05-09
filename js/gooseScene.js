@@ -2,7 +2,7 @@
 // class for the goose scene
 class GooseScene extends Phaser.Scene {
   
-  //constructs keywords
+  //method that constructs keywords
   constructor() {
     super({key: "gooseScene"})
     // creates variable for goose scene image
@@ -11,7 +11,7 @@ class GooseScene extends Phaser.Scene {
   }
   init(data) {
     // sets the background color
-    this.cameras.main.setBackgroundColor('#fffff')
+    this.cameras.main.setBackgroundColor('#1144ff')
   }
   preload() {
     // really just to check if stuff is working
@@ -24,7 +24,7 @@ class GooseScene extends Phaser.Scene {
 
   create(data) {
     // creates goose scene image sprite and sets where the axis that it will be placed on starts, and scales image
-    this.gooseSceneBackgroundImage = this.add.sprite(0, 0, 'gooseSceneBackground').setScale(0.65)
+    this.gooseSceneBackgroundImage = this.add.sprite(0, 0, 'gooseSceneBackground').setScale(0.6)
     // coordinates for image
     this.gooseSceneBackgroundImage.x = 1920 / 2
     this.gooseSceneBackgroundImage.y = 1080 / 2

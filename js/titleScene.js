@@ -6,6 +6,7 @@ class TitleScene extends Phaser.Scene {
     this.titleSceneAnimation = null
   }
   init(data) {
+    // sets the background color
     this.cameras.main.setBackgroundColor('#ffffff')
   }
   preload() {
@@ -15,7 +16,7 @@ class TitleScene extends Phaser.Scene {
 
   // creates data 
   create(data) {
-    this.titleSceneAnimation = this.add.video(0, 0, 'titleSceneAnimation')
+    this.titleSceneAnimation = this.add.video(0, 0, 'titleSceneAnimation', {volume : 2})
     this.titleSceneAnimation.x = 1920 / 2
     this.titleSceneAnimation.y = 1080 / 2
     this.titleSceneAnimation.play()
