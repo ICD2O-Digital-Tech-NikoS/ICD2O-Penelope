@@ -28,7 +28,7 @@ class GooseScene extends Phaser.Scene {
     // coordinates for image
     this.gooseSceneBackgroundImage.x = 1920 / 2
     this.gooseSceneBackgroundImage.y = 1080 / 2
-
+    this.scene.start('gooseSceneBackground', { fadeIn: true })
     this.music = this.sound.add('gooseAudio')
     this.music.play()
   }
