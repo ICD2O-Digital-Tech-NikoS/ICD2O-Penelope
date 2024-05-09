@@ -7,6 +7,7 @@ class GooseScene extends Phaser.Scene {
     super({key: "gooseScene"})
     // creates variable for goose scene image
     this.gooseSceneBackgroundImage = null
+    this.gooseAudio = null
   }
   init(data) {
     // sets the background color
@@ -17,6 +18,7 @@ class GooseScene extends Phaser.Scene {
     console.log("Goose Scene")
     // loads image for goose scene
     this.load.image('gooseSceneBackground', './assets/gooseSceneImage.png')
+    this.load.audio('gooseAudio', './assets/gooseAudio.mp3')
   }
 
 
@@ -26,6 +28,9 @@ class GooseScene extends Phaser.Scene {
     // coordinates for image
     this.gooseSceneBackgroundImage.x = 1920 / 2
     this.gooseSceneBackgroundImage.y = 1080 / 2
+
+    const music = this.sound.add('gooseAudio')
+    music.play()
   }
   // utilizes time for if statement to create a change after a certain amount of time passes
   update(time, delta) {
