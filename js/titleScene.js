@@ -21,7 +21,9 @@ class TitleScene extends Phaser.Scene {
     this.titleSceneAnimation.play()
   }
   update(time, delta) {
-    //pass
+    if (time > 10000) {
+      this.scene.switch('menuScene')
+    }  
   } 
 }
 

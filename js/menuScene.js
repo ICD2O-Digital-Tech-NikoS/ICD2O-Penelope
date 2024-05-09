@@ -6,6 +6,7 @@ class MenuScene extends Phaser.Scene {
   constructor() {
     super({key: "menuScene"})
     this.startButton = null
+    this.menuSceneBackgroundImage = null
   }
   init(data) {
     // sets the background color
@@ -15,20 +16,25 @@ class MenuScene extends Phaser.Scene {
     // really just to check if stuff is working
     console.log("Menu Scene")
     this.load.image('startButton', './assets/startButton.png')
+    this.load.image('menuSceneBackground', './assets/menuSceneBackgroundImage.png')
   }
 
 
   create(data) {
-    this.startButton = this.add.sprite(1920 / 2, (1080 / 2) + 100, 'startButton')
+    this.menuSceneBackgroundImage = this.add.sprite(0, 0, 'menuSceneBackground')
+    this.menuSceneBackgroundImage.x = 1920 / 2
+    this.menuSceneBackgroundImage.y = 1080 / 2
+    this.startButton = this.add.sprite(1920 / 2, (1300 / 2) + 100, 'startButton').setScale(0.2)
     this.startButton.setInteractive({ useHandCursor : true })
     this.startButton.on('pointerdown', () => this.clickButton())
   }
 
   update(time, delta) {
-    clickButton () {
-      this.scene.start('gameScene')
-    }
-  } 
+  }
+  
+  clickButton () {
+    this.scene.start('gameScene')
+  }
 }
 
 export default MenuScene
