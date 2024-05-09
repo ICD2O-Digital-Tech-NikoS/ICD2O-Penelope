@@ -29,8 +29,8 @@ class GooseScene extends Phaser.Scene {
     this.gooseSceneBackgroundImage.x = 1920 / 2
     this.gooseSceneBackgroundImage.y = 1080 / 2
 
-    const music = this.sound.add('gooseAudio')
-    music.play()
+    this.music = this.sound.add('gooseAudio')
+    this.music.play()
   }
   // utilizes time for if statement to create a change after a certain amount of time passes
   update(time, delta) {
