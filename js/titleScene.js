@@ -1,3 +1,8 @@
+// Created by: Niko
+// Created on: may 2024
+// This is the Title Scene
+
+// class that contains information for a scene
 class TitleScene extends Phaser.Scene {
 
   constructor() {

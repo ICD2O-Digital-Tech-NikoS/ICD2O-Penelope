@@ -1,5 +1,8 @@
+// Created by: Niko
+// Created on: may 2024
+// This is the Splash Scene
 
-
+// class that contains information for a scene
 class SplashScene extends Phaser.Scene {
   
   //method that constructs keywords

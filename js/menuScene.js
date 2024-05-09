@@ -1,3 +1,6 @@
+// Created by: Niko
+// Created on: may 2024
+// This is the Menu Scene
 
 // class for the menu scene
 class MenuScene extends Phaser.Scene {

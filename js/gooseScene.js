@@ -1,3 +1,6 @@
+// Created by: Niko
+// Created on: may 2024
+// This is the Goose Scene
 
 // class for the goose scene
 class GooseScene extends Phaser.Scene {

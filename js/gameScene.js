@@ -1,3 +1,6 @@
+// Created by: Niko
+// Created on: may 2024
+// This is the Game Scene
 
 // class for the game scene
 class GameScene extends Phaser.Scene {
