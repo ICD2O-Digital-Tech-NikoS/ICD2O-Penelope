@@ -7,6 +7,7 @@ class GooseScene extends Phaser.Scene {
     super({key: "gooseScene"})
     // creates variable for goose scene image
     this.gooseSceneBackgroundImage = null
+    // variable for goose audio
     this.gooseAudio = null
   }
   init(data) {

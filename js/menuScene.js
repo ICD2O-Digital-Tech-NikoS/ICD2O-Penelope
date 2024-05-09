@@ -15,13 +15,16 @@ class MenuScene extends Phaser.Scene {
   preload() {
     // really just to check if stuff is working
     console.log("Menu Scene")
+    // loads video and allows it to be used and customized for the scene (using create data)
     this.load.image('startButton', './assets/startButton.png')
     this.load.image('menuSceneBackground', './assets/menuSceneBackgroundImage.png')
   }
 
 
   create(data) {
+    // creates goose scene image sprite and sets where the axis that it will be placed on starts
     this.menuSceneBackgroundImage = this.add.sprite(0, 0, 'menuSceneBackground')
+    // coordinates for image
     this.menuSceneBackgroundImage.x = 1920 / 2
     this.menuSceneBackgroundImage.y = 1080 / 2
     this.startButton = this.add.sprite(1920 / 2, (1300 / 2) + 100, 'startButton').setScale(0.2)
