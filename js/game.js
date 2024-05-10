@@ -4,7 +4,7 @@
 
 // global phaser 
 
-//scene import statements
+//scene import statements that reference the phaser scene created for that scene, and saves it to a variable
 import SplashScene from "./splashScene.js"
 import TitleScene from "./titleScene.js"
 import GooseScene from "./gooseScene.js"
@@ -18,8 +18,9 @@ const gooseScene = new GooseScene()
 const gameScene = new GameScene()
 const menuScene = new MenuScene()
 const tutorialScene = new TutorialScene()
-// game configuration settings
+// game configuration settings, dictionary of basic parameters for the game
 const config = {
+  // sets the phaser type to the default type
   type: Phaser.AUTO,
   width: 1920,
   height: 1080,
@@ -38,6 +39,7 @@ const config = {
   }
 }
 
+// game varible that uses the config parameters
 const game = new Phaser.Game(config)
 
 

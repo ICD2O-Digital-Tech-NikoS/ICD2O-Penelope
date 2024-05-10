@@ -12,6 +12,7 @@ class SplashScene extends Phaser.Scene {
     this.splashSceneBackgroundImage = null
     this.introAudio
   }
+  // sets things up before the scene loads
   init(data) {
     // sets the background color
     this.cameras.main.setBackgroundColor('#ffffff')
@@ -36,6 +37,9 @@ class SplashScene extends Phaser.Scene {
   update(time, delta) {
     if (time > 8000) {
       this.scene.switch('gooseScene')
+    }  
+    if (time > 26000) {
+      this.music.stop()
     }  
   } 
 }
