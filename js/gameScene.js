@@ -19,7 +19,7 @@ class GameScene extends Phaser.Scene {
   preload() {
     // really just to check if stuff is working
     console.log("Game Scene")
-    this.load.image('gameLevelOneBackground', './assets/gameLevelOneBackgroundImage.png')
+    this.load.image('gameLevelOneBackground', './assets/gameLevelOneBackgroundImage.jpg')
     this.load.image('penelope', './assets/penelope.png')
   }
 

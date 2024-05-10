@@ -23,6 +23,9 @@ class TutorialScene extends Phaser.Scene {
 
   // used to create game objects and add specifications
   create(data) {
+    this.tutorialBackgroundImage = this.add.sprite(0, 0, 'tutorialSceneBackground')
+    this.tutorialBackgroundImage.x = 1920 / 2
+    this.tutorialBackgroundImage.y = 1080 / 2
  // gives button the property of interactive and makes the cursor turn into a hand when hovering over the button
     this.tutorialBackgroundImage.setInteractive({ useHandCursor : true })
     //when the cursor is on and, pointer down meaning click essentially happens, it runs the code or function
