@@ -19,8 +19,8 @@ class MenuScene extends Phaser.Scene {
     // really just to check if stuff is working
     console.log("Menu Scene")
     // loads video and allows it to be used and customized for the scene (using create data)
-    this.load.image('startButton', './assets/startButton.png')
-    this.load.image('menuSceneBackground', './assets/menuSceneBackgroundImage.png')
+    this.load.image('startButton', '././assets/startButton.png')
+    this.load.image('menuSceneBackground', '././assets/menuSceneBackgroundImage.png')
   }
 
 

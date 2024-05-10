@@ -17,7 +17,7 @@ class TitleScene extends Phaser.Scene {
   preload() {
     console.log("Title Scene")
     // loads video and allows it to be used and customized for the scene (using create data)
-    this.load.video('titleSceneAnimation', './assets/titleSceneAnimation.mp4')
+    this.load.video('titleSceneAnimation', '././assets/titleSceneAnimation.mp4')
   }
 
   // creates data 
