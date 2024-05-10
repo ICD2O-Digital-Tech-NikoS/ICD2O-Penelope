@@ -8,6 +8,7 @@ class TutorialScene extends Phaser.Scene {
   //method that constructs keywords
   constructor() {
     super({key: "tutorialScene"})
+    this.tutorialBackgroundImage = null
   }
   init(data) {
     // sets the background color
@@ -17,11 +18,15 @@ class TutorialScene extends Phaser.Scene {
   preload() {
     // really just to check if stuff is working
     console.log("Tutorial Scene")
+    this.load.image('tutorialSceneBackground', './assets/tutorialSceneImage.png')
   }
 
   // used to create game objects and add specifications
   create(data) {
-
+ // gives button the property of interactive and makes the cursor turn into a hand when hovering over the button
+    this.tutorialBackgroundImage.setInteractive({ useHandCursor : true })
+    //when the cursor is on and, pointer down meaning click essentially happens, it runs the code or function
+    this.tutorialBackgroundImage.on('pointerdown', () => this.clickButton())
   }
 
   update(time, delta) {
