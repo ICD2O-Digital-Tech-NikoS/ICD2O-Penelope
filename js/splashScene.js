@@ -20,8 +20,8 @@ class SplashScene extends Phaser.Scene {
   preload() {
     console.log("Splash Scene")
     // loads video and allows it to be used and customized for the scene (using create data)
-    this.load.image('splashSceneBackground', './assets/splashSceneImage.png')
-    this.load.audio('introAudio', './assets/introAudio.mp3')
+    this.load.image('splashSceneBackground', '././assets/splashSceneImage.png')
+    this.load.audio('introAudio', '././assets/introAudio.mp3')
   }
 
 

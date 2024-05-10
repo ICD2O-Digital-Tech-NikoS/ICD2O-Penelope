@@ -21,9 +21,9 @@ class GooseScene extends Phaser.Scene {
     // really just to check if stuff is working
     console.log("Goose Scene")
     // loads image for goose scene
-    this.load.image('gooseSceneBackground', './assets/gooseSceneImage.png')
+    this.load.image('gooseSceneBackground', '././assets/gooseSceneImage.png')
     // loads audio for goose scene
-    this.load.audio('gooseAudio', './assets/gooseAudio.mp3')
+    this.load.audio('gooseAudio', '././assets/gooseAudio.mp3')
   }
 
 

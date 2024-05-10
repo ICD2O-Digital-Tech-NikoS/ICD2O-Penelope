@@ -8,28 +8,29 @@ class GameScene extends Phaser.Scene {
   //method that constructs keywords
   constructor() {
     super({key: "gameScene"})
-    this.background = null
+    this.gameSceneBackground = null
     this.penelope = null
   }
   init(data) {
     // sets the background color
-    this.cameras.main.setBackgroundColor('#1111ff')
+    this.cameras.main.setBackgroundColor('#ffffff')
   }
   // used to load assets
   preload() {
     // really just to check if stuff is working
     console.log("Game Scene")
-    this.load.image('gameLevelOneBackground', './assets/gameLevelOneBackgroundImage.jpg')
-    this.load.image('penelope', './assets/penelope.png')
+    this.load.image('gameSceneBackground', '././assets/gameSceneBackground.jpg')
+    this.load.image('penelope', '././assets/penelope.png')
   }
 
   // used to create game objects and add specifications
   create(data) {
-    this.background = this.add.image(0, 0, 'gameLevelOneBackground')
-    this.background.setOrigin(0, 0)
+    this.gameScenebackground = this.add.image(0, 0, 'gameSceneBackground')
+    this.gameScenebackground.x = 1920 / 2
+    this.gameScenebackground.y = 1080 / 2
     this.penelope = this.physics.add.sprite(1920 / 2, 1080 - 100, 'penelope')
     // create a random number generator for velocity later 
-    this.beardGroup = this.physics.add.group()
+    //this.beardGroup = this.physics.add.group()
     
   }
   

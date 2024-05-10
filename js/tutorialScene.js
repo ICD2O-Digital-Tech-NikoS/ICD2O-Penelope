@@ -12,13 +12,13 @@ class TutorialScene extends Phaser.Scene {
   }
   init(data) {
     // sets the background color
-    this.cameras.main.setBackgroundColor('#1111ff')
+    this.cameras.main.setBackgroundColor('#ffffff')
   }
   // used to load assets
   preload() {
     // really just to check if stuff is working
     console.log("Tutorial Scene")
-    this.load.image('tutorialSceneBackground', './assets/tutorialSceneImage.png')
+    this.load.image('tutorialSceneBackground', '././assets/tutorialSceneImage.png')
   }
 
   // used to create game objects and add specifications
@@ -34,6 +34,10 @@ class TutorialScene extends Phaser.Scene {
 
   update(time, delta) {
   } 
+  // starts gameScene when clicked
+  clickButton () {
+    this.scene.start('gameScene')
+  }
 }
 
 export default TutorialScene

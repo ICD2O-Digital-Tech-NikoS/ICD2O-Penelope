@@ -13,7 +13,7 @@ class MenuScene extends Phaser.Scene {
   }
   init(data) {
     // sets the background color
-    this.cameras.main.setBackgroundColor('#1111f')
+    this.cameras.main.setBackgroundColor('#ffffff')
   }
   preload() {
     // really just to check if stuff is working
@@ -40,7 +40,7 @@ class MenuScene extends Phaser.Scene {
   update(time, delta) {
   }
 
-  // starts gameScene when clicked
+  // starts tutorialScene when clicked
   clickButton () {
     this.scene.switch('tutorialScene')
   }
