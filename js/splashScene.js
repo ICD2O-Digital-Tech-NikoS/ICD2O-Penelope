@@ -10,7 +10,7 @@ class SplashScene extends Phaser.Scene {
     super({key: "splashScene"})
 
     this.splashSceneBackgroundImage = null
-    this.introAudio
+    this.introAudio = null
   }
   // sets things up before the scene loads
   init(data) {

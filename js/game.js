@@ -4,14 +4,14 @@
 
 // global phaser 
 
-//scene import statements that reference the phaser scene created for that scene, and saves it to a variable
+//scene import statements that reference the phaser scene created for that scene
 import SplashScene from "./splashScene.js"
 import TitleScene from "./titleScene.js"
 import GooseScene from "./gooseScene.js"
 import GameScene from "./gameScene.js"
 import MenuScene from "./menuScene.js"
 import TutorialScene from "./tutorialScene.js"
-// create the new scenes
+// create the new scenes as a variable
 const splashScene = new SplashScene()
 const titleScene = new TitleScene()
 const gooseScene = new GooseScene()
