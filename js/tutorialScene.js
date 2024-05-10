@@ -1,13 +1,13 @@
 // Created by: Niko
 // Created on: may 2024
-// This is the Game Scene
+// This is the Tutorial Scene
 
 // class for the game scene
-class GameScene extends Phaser.Scene {
-  
+class TutorialScene extends Phaser.Scene {
+
   //method that constructs keywords
   constructor() {
-    super({key: "gameScene"})
+    super({key: "tutorialScene"})
   }
   init(data) {
     // sets the background color
@@ -16,16 +16,16 @@ class GameScene extends Phaser.Scene {
   // used to load assets
   preload() {
     // really just to check if stuff is working
-    console.log("Game Scene")
+    console.log("Tutorial Scene")
   }
 
   // used to create game objects and add specifications
   create(data) {
-   
+
   }
-  
+
   update(time, delta) {
   } 
 }
 
-export default GameScene
+export default TutorialScene
