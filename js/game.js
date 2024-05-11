@@ -21,7 +21,7 @@ const gameScene = new GameScene()
 const menuScene = new MenuScene()
 const tutorialScene = new TutorialScene()
 const transitionSceneOne = new TransitionSceneOne()
-const gameOverScene = new gameOverScene()
+const gameOverScene = new GameOverScene()
 // game configuration settings, dictionary of basic parameters for the game
 const config = {
   // sets the phaser type to the default type
@@ -54,7 +54,7 @@ game.scene.add('gooseScene', gooseScene)
 game.scene.add('gameScene', gameScene)
 game.scene.add('menuScene', menuScene)
 game.scene.add('tutorialScene', tutorialScene)
-game.scene.add('gameOverScene', GameOverScene)
+game.scene.add('gameOverScene', gameOverScene)
 game.scene.add('transitionSceneOne', transitionSceneOne)
 // start scene
 game.scene.start('splashScene')
