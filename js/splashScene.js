@@ -38,7 +38,7 @@ class SplashScene extends Phaser.Scene {
     if (time > 8000) {
       this.scene.switch('gooseScene')
     }  
-    if (time > 26000) {
+    if (time > 25000) {
       this.music.stop()
     }  
   } 
