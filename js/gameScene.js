@@ -38,6 +38,7 @@ class GameScene extends Phaser.Scene {
     this.load.image('penelope', '././assets/penelope.png')
     this.load.image('beard', '././assets/beard.png')
     this.load.image('ground', '././assets/ground.png')
+    this.load.image('gameOver', '././assets/gameOver.png')
   }
 
   // used to create game objects and add specifications
@@ -46,12 +47,14 @@ class GameScene extends Phaser.Scene {
     this.gameScenebackground.x = 1920 / 2
     this.gameScenebackground.y = 1080 / 2
     this.penelope = this.physics.add.sprite(1920 / 2, 1080 - 130, 'penelope').setScale(0.3)
+    //  220x104 original size, 110x52 new size, the 'true' argument means "center it on the gameobject"
+    this.penelope.setSize(110, 52, true)
     this.scoreText = this.add.text(10, 10, 'Score: ' + this.score.toString(), this.scoreTextStyle)
-    this.strikeText = this.add.text(10, 50, 'Strikes: ' + this.strikes.toString(), this.strikeTextStyle)
+    this.strikeText = this.add.text(10, 70, 'Strikes: ' + this.strikes.toString(), this.strikeTextStyle)
     //  The platforms group allows me to create platforms
-    this.platforms = this.physics.add.staticGroup();
+    this.platforms = this.physics.add.staticGroup()
     //  Player physics properties and bounds so that player canno go off screen or out of bounds
-    this.penelope.setCollideWorldBounds(true);
+    this.penelope.setCollideWorldBounds(true)
     //  Collide the player and platforms
     this.physics.add.collider(this.penelope, this.platforms);
     // creates ground
@@ -89,6 +92,13 @@ class GameScene extends Phaser.Scene {
 
     if (keyRightObj.isDown === true) {
       this.penelope.x = this.penelope.x + 13
+    }
+
+    if (this.strikes > 3) {
+      this.scene.switch('gameOverScene')
+    }
+    if (this.score > 100 && this.strikes < 3) {
+      this.scene.switch(transitionSceneOne)
     }
   } 
 }
