@@ -37,7 +37,7 @@ class GameScene extends Phaser.Scene {
     this.load.image('gameSceneBackground', '././assets/gameSceneBackground.jpg')
     this.load.image('penelope', '././assets/penelope.png')
     this.load.image('beard', '././assets/beard.png')
-    this.load.image('ground', '././assets/levelOneGround.png')
+    this.load.image('ground', '././assets/platform.png')
   }
 
   // used to create game objects and add specifications
