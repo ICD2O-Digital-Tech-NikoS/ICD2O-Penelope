@@ -4,12 +4,11 @@
 
 // class for the game scene
 class GameScene extends Phaser.Scene {
-  
   // create a beard
   createBeard() {
-    const beardVelocity = Math.floor(Math.random() * 101) + 200
+    const beardVelocity = Math.floor(Math.random() * 151) + 100
     const beardXLocation = Math.floor(Math.random() * 1920) + 1
-    const aBeard = this.physics.add.sprite(beardXLocation, 100, 'beard') .setScale(0.2)
+    const aBeard = this.physics.add.sprite(beardXLocation, -100, 'beard') .setScale(0.2)
     aBeard.body.velocity.y = beardVelocity
     this.beardGroup.add(aBeard)
     
@@ -20,6 +19,12 @@ class GameScene extends Phaser.Scene {
     this.gameSceneBackground = null
     this.penelope = null
     this.beard = null
+    this.score = 0
+    this.scoreText = null
+    this.scoreTextStyle = { font: '65px Arial', fill: '#ffffff', align: 'center'}
+    this.strikes = 0
+    this.strikeText = null
+    this.strikeTextStyle = { font: '65px Arial', fill: '#ffffff', align: 'center'}
   }
   init(data) {
     // sets the background color
@@ -36,19 +41,31 @@ class GameScene extends Phaser.Scene {
 
   // used to create game objects and add specifications
   create(data) {
+    const penelopeYLocation = 1080 - 180
     this.gameScenebackground = this.add.image(0, 0, 'gameSceneBackground')
     this.gameScenebackground.x = 1920 / 2
     this.gameScenebackground.y = 1080 / 2
-    this.penelope = this.physics.add.sprite(1920 / 2, 1080 - 180, 'penelope').setScale(0.3)
+    this.penelope = this.physics.add.sprite(1920 / 2, penelopeYLocation, 'penelope').setScale(0.3)
+    this.scoreText = this.add.text(10, 10, 'Score: ' + this.score.toString(), this.scoreTextStyle)
     // create a random number generator for velocity later 
     this.beardGroup = this.add.group()
     this.createBeard()
-    
+    // collisions between beards and penelope
+    this.physics.add.collider(this.beardGroup, this.penelope, function(beardCollide) {
+      beardCollide.destroy()
+      //this.sound.play('vineBoom')
+      this.score = this.score + 1
+      this.scoreText.setText('Score: ' + this.score.toString())
+      this.createBeard()
+      this.createBeard()
+      this.penelope.y = penelopeYLocation
+    }.bind(this))
   }
   
   update(time, delta) {
     const keyLeftObj = this.input.keyboard.addKey('LEFT') 
     const keyRightObj = this.input.keyboard.addKey('RIGHT')
+    const penelopeYLocation = 1080 - 180
 
     if (keyLeftObj.isDown === true) {
       this.penelope.x = this.penelope.x - 10
@@ -64,7 +81,10 @@ class GameScene extends Phaser.Scene {
         this.penelope.x = 1910
       }
     }
-
+    if (this.beardGroup.y < 0) {
+      this.beardGroup.destroy()
+      this.createBeard()
+    }
     
   } 
 }
