@@ -6,9 +6,9 @@
 class GameScene extends Phaser.Scene {
   // create a beard
   createBeard() {
-    const beardVelocity = Math.floor(Math.random() * 111) + 100
+    const beardVelocity = Math.floor(Math.random() * 151) + 60
     const beardXLocation = Math.floor(Math.random() * 1920) + 1
-    const aBeard = this.physics.add.sprite(beardXLocation, -100, 'beard') .setScale(0.2)
+    const aBeard = this.physics.add.sprite(beardXLocation, -100, 'beard') .setScale(0.13)
     aBeard.body.velocity.y = beardVelocity
     this.beardGroup.add(aBeard)
     
@@ -88,12 +88,12 @@ class GameScene extends Phaser.Scene {
     const keyRightObj = this.input.keyboard.addKey('RIGHT')
 
     if (keyLeftObj.isDown === true) {
-      this.penelope.x = this.penelope.x - 13
+      this.penelope.x = this.penelope.x - 16
     }
     
 
     if (keyRightObj.isDown === true) {
-      this.penelope.x = this.penelope.x + 13
+      this.penelope.x = this.penelope.x + 16
     }
     // if they get three strikes they are out
     if (this.strikes > 2) {
