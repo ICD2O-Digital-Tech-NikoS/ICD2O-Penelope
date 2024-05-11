@@ -3,7 +3,7 @@
 // This is the Game Scene
 
 // class for the game scene
-class GameScene extends Phaser.Scene {
+class GameSceneTwo extends Phaser.Scene {
   // create a beard
   createBeard() {
     const beardVelocity = Math.floor(Math.random() * 131) + 40
@@ -11,11 +11,11 @@ class GameScene extends Phaser.Scene {
     const aBeard = this.physics.add.sprite(beardXLocation, -100, 'beard') .setScale(0.13)
     aBeard.body.velocity.y = beardVelocity
     this.beardGroup.add(aBeard)
-    
+
   }
   //method that constructs keywords
   constructor() {
-    super({key: "gameScene"})
+    super({key: "gameSceneTwo"})
     this.gameSceneBackground = null
     this.penelope = null
     this.beard = null
@@ -33,7 +33,7 @@ class GameScene extends Phaser.Scene {
   // used to load assets
   preload() {
     // really just to check if stuff is working
-    console.log("Game Scene")
+    console.log("Game Scene Two")
     this.load.image('gameSceneBackground', '././assets/gameSceneBackground.jpg')
     this.load.spritesheet('penelope', '././assets/penelope.png', {
       frameWidth: 1000,
@@ -70,7 +70,7 @@ class GameScene extends Phaser.Scene {
 
 
 
-    
+
     this.scoreText = this.add.text(10, 10, 'Score: ' + this.score.toString(), this.scoreTextStyle)
     this.strikeText = this.add.text(10, 70, 'Strikes: ' + this.strikes.toString(), this.strikeTextStyle)
     //  The platforms group allows me to create platforms
@@ -93,7 +93,7 @@ class GameScene extends Phaser.Scene {
       this.createBeard()
       this.createBeard()
     }.bind(this))
-    
+
     this.physics.add.collider(this.beardGroup, this.ground, function(beardCollide) {
       beardCollide.destroy()
       //this.sound.play('vineBoom')
@@ -102,7 +102,7 @@ class GameScene extends Phaser.Scene {
       this.createBeard()
     }.bind(this))
   }
-  
+
   update(time, delta) {
     const keyLeftObj = this.input.keyboard.addKey('LEFT') 
     const keyRightObj = this.input.keyboard.addKey('RIGHT')
@@ -126,9 +126,9 @@ class GameScene extends Phaser.Scene {
     }
     // if they get a score of 100 and they have not been out yet, they win
     if (this.score > 100 && this.strikes < 3) {
-      this.scene.switch(transitionSceneOne)
+      this.scene.switch(transitionSceneTwo)
     }
   } 
 }
 
-export default GameScene
+export default GameSceneTwo
