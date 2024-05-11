@@ -41,14 +41,24 @@ class GameScene extends Phaser.Scene {
 
   // used to create game objects and add specifications
   create(data) {
-    const penelopeYLocation = 1080 - 180
     this.gameScenebackground = this.add.image(0, 0, 'gameSceneBackground')
     this.gameScenebackground.x = 1920 / 2
     this.gameScenebackground.y = 1080 / 2
-    this.penelope = this.physics.add.sprite(1920 / 2, penelopeYLocation, 'penelope').setScale(0.3)
-    this.scoreText = this.add.text(10, 10, 'Score: ' + this.score.toString(), this.scoreTextStyle)
-    // create a random number generator for velocity later 
+    this.penelope = this.physics.add.sprite(1920 / 2, 1080 - 180, 'penelope').setScale(0.3)
+    this.scoreText = this.add.text(10, 10, 'Score: ' + this.score.toString(), this.scoreTextStyle) 
     this.beardGroup = this.add.group()
+    //  The platforms group contains the ground
+    this.platforms = this.physics.add.staticGroup();
+    //  Here we create the ground.
+    this.platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+    //  Player physics properties.
+    this.penelope.setCollideWorldBounds(true);
+    //  Collide the player and the stars with the platforms
+    this.physics.add.collider(this.player, this.platforms);
+
+
+
+    
     this.createBeard()
     // collisions between beards and penelope
     this.physics.add.collider(this.beardGroup, this.penelope, function(beardCollide) {
@@ -58,14 +68,12 @@ class GameScene extends Phaser.Scene {
       this.scoreText.setText('Score: ' + this.score.toString())
       this.createBeard()
       this.createBeard()
-      this.penelope.y = penelopeYLocation
     }.bind(this))
   }
   
   update(time, delta) {
     const keyLeftObj = this.input.keyboard.addKey('LEFT') 
     const keyRightObj = this.input.keyboard.addKey('RIGHT')
-    const penelopeYLocation = 1080 - 180
 
     if (keyLeftObj.isDown === true) {
       this.penelope.x = this.penelope.x - 10
@@ -81,11 +89,10 @@ class GameScene extends Phaser.Scene {
         this.penelope.x = 1910
       }
     }
-    if (this.beardGroup.y < 0) {
+    if (this.beardGroup.y < 1080) {
       this.beardGroup.destroy()
       this.createBeard()
     }
-    
   } 
 }
 
