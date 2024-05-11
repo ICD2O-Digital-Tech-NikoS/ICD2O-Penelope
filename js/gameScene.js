@@ -35,7 +35,10 @@ class GameScene extends Phaser.Scene {
     // really just to check if stuff is working
     console.log("Game Scene")
     this.load.image('gameSceneBackground', '././assets/gameSceneBackground.jpg')
-    this.load.image('penelope', '././assets/penelope.png')
+    this.load.spritesheet('penelope', '././assets/penelope.png', {
+      frameWidth: 1000,
+      frameHeight: 903
+    })
     this.load.image('beard', '././assets/beard.png')
     this.load.image('ground', '././assets/ground.png')
     this.load.image('gameOver', '././assets/gameOver.png')
@@ -50,7 +53,24 @@ class GameScene extends Phaser.Scene {
     //  220x104 original size, 110x52 new size, the 'true' argument means "center it on the gameobject"
     this.penelope.setSize(430, 670, true)
     // changes the position of the hitbox for the sprite 
-    this.penelope.body.setOffset(1500 / 2, 1080 - 620)
+    this.penelope.body.setOffset(1800 / 2, 1080 - 620)
+
+    this.anims.create({
+      key: "penelope_anim",
+      frames: this.anims.generateFrameNumbers("penelope", {start: 1, end: 5}),
+      frameRate: 20,
+      repeat: -1
+    })
+
+    this.anims.create({
+      key: "penelope_anim_standing",
+      frames: this.anims.generateFrameNumbers("penelope", 0)
+    })
+
+
+
+
+    
     this.scoreText = this.add.text(10, 10, 'Score: ' + this.score.toString(), this.scoreTextStyle)
     this.strikeText = this.add.text(10, 70, 'Strikes: ' + this.strikes.toString(), this.strikeTextStyle)
     //  The platforms group allows me to create platforms
@@ -89,8 +109,11 @@ class GameScene extends Phaser.Scene {
 
     if (keyLeftObj.isDown === true) {
       this.penelope.x = this.penelope.x - 16
+      this.penelope.play('penelope_anim')
+    } 
+    if (keyLeftObj.isUp === true) {
+      this.penelope.play('penelope_anim_standing')
     }
-    
 
     if (keyRightObj.isDown === true) {
       this.penelope.x = this.penelope.x + 16
