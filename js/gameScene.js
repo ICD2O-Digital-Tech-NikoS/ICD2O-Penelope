@@ -37,7 +37,7 @@ class GameScene extends Phaser.Scene {
     this.load.image('gameSceneBackground', '././assets/gameSceneBackground.jpg')
     this.load.image('penelope', '././assets/penelope.png')
     this.load.image('beard', '././assets/beard.png')
-    this.load.image('ground', '././assets/platform.png')
+    this.load.image('ground', '././assets/ground.png')
   }
 
   // used to create game objects and add specifications
@@ -47,6 +47,7 @@ class GameScene extends Phaser.Scene {
     this.gameScenebackground.y = 1080 / 2
     this.penelope = this.physics.add.sprite(1920 / 2, 1080 - 130, 'penelope').setScale(0.3)
     this.scoreText = this.add.text(10, 10, 'Score: ' + this.score.toString(), this.scoreTextStyle)
+    this.strikeText = this.add.text(10, 50, 'Strikes: ' + this.strikes.toString(), this.strikeTextStyle)
     //  The platforms group allows me to create platforms
     this.platforms = this.physics.add.staticGroup();
     //  Player physics properties and bounds so that player canno go off screen or out of bounds
@@ -54,7 +55,7 @@ class GameScene extends Phaser.Scene {
     //  Collide the player and platforms
     this.physics.add.collider(this.penelope, this.platforms);
     // creates ground
-    this.ground = this.platforms.create(1920 / 2, 0, 'ground').refreshBody()
+    this.ground = this.platforms.create(1920 / 2, 1680, 'ground').refreshBody()
 
     this.beardGroup = this.add.group()
     this.createBeard()
@@ -69,10 +70,10 @@ class GameScene extends Phaser.Scene {
     }.bind(this))
     
     this.physics.add.collider(this.beardGroup, this.ground, function(beardCollide) {
-      //beardCollide.destroy()
+      beardCollide.destroy()
       //this.sound.play('vineBoom')
-      this.strike = this.strike + 1
-      this.strikeText = 'Strikes: ' + this.strike.toString()
+      this.strikes = this.strikes + 1
+      this.strikeText.setText('Strikes: ' + this.strikes.toString())
       this.createBeard()
     }.bind(this))
   }
