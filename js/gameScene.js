@@ -6,7 +6,7 @@
 class GameScene extends Phaser.Scene {
   // create a beard
   createBeard() {
-    const beardVelocity = Math.floor(Math.random() * 151) + 100
+    const beardVelocity = Math.floor(Math.random() * 111) + 100
     const beardXLocation = Math.floor(Math.random() * 1920) + 1
     const aBeard = this.physics.add.sprite(beardXLocation, -100, 'beard') .setScale(0.2)
     aBeard.body.velocity.y = beardVelocity
@@ -46,9 +46,11 @@ class GameScene extends Phaser.Scene {
     this.gameScenebackground = this.add.image(0, 0, 'gameSceneBackground')
     this.gameScenebackground.x = 1920 / 2
     this.gameScenebackground.y = 1080 / 2
-    this.penelope = this.physics.add.sprite(1920 / 2, 1080 - 130, 'penelope').setScale(0.3)
+    this.penelope = this.physics.add.sprite(1920 / 2, 1080 - 180, 'penelope').setScale(0.3)
     //  220x104 original size, 110x52 new size, the 'true' argument means "center it on the gameobject"
-    this.penelope.setSize(210, 800, true)
+    this.penelope.setSize(430, 670, true)
+    // changes the position of the hitbox for the sprite 
+    this.penelope.body.setOffset(1500 / 2, 1080 - 620)
     this.scoreText = this.add.text(10, 10, 'Score: ' + this.score.toString(), this.scoreTextStyle)
     this.strikeText = this.add.text(10, 70, 'Strikes: ' + this.strikes.toString(), this.strikeTextStyle)
     //  The platforms group allows me to create platforms
@@ -93,10 +95,11 @@ class GameScene extends Phaser.Scene {
     if (keyRightObj.isDown === true) {
       this.penelope.x = this.penelope.x + 13
     }
-
+    // if they get three strikes they are out
     if (this.strikes > 2) {
       this.scene.switch('gameOverScene')
     }
+    // if they get a score of 100 and they have not been out yet, they win
     if (this.score > 100 && this.strikes < 3) {
       this.scene.switch(transitionSceneOne)
     }
