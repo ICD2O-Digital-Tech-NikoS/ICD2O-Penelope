@@ -35,7 +35,7 @@ class GameScene extends Phaser.Scene {
     // really just to check if stuff is working
     console.log("Game Scene")
     this.load.image('gameSceneBackground', '././assets/gameSceneBackground.jpg')
-    this.load.spritesheet('penelope', '././assets/penelope.png', {
+    this.load.spritesheet('penelope', '././assets/penelopeSceneOne.png', {
       frameWidth: 1000,
       frameHeight: 1000
     })
@@ -56,15 +56,37 @@ class GameScene extends Phaser.Scene {
     this.penelope.body.setOffset(625 / 2, 1080 - 680)
 
     this.anims.create({
-      key: "penelope_anim",
-      frames: this.anims.generateFrameNumbers("penelope", {start: 1, end: 5}),
+      key: "penelope_anim1",
+      frames: this.anims.generateFrameNumbers("penelope", {start: 8, end: 13}),
       frameRate: 20,
       repeat: -1
     })
 
     this.anims.create({
-      key: "penelope_anim_standing",
+      key: "penelope_anim2",
+      frames: this.anims.generateFrameNumbers("penelope", {start: 15, end: 20}),
+      frameRate: 20,
+      repeat: -1
+    })
+
+    this.anims.create({
+      key: "penelope_anim3",
+      frames: this.anims.generateFrameNumbers("penelope", {start: 22, end: 27}),
+      frameRate: 20,
+      repeat: -1
+    })
+
+    this.anims.create({
+      key: "penelope_anim_standing1",
       frames: this.anims.generateFrameNumbers("penelope", 0)
+    })
+    this.anims.create({
+      key: "penelope_anim_standing2",
+      frames: this.anims.generateFrameNumbers("penelope", 7)
+    })
+    this.anims.create({
+      key: "penelope_anim_standing3",
+      frames: this.anims.generateFrameNumbers("penelope", 21)
     })
 
 
@@ -109,16 +131,36 @@ class GameScene extends Phaser.Scene {
 
     if (keyLeftObj.isDown === true) {
       this.penelope.x = this.penelope.x - 16
-      this.penelope.playReverse('penelope_anim', true)
-    } 
+      if (this.score == 2) {
+        this.penelope.playReverse('penelope_anim2', true)
+      }
+    }
 
     if (keyRightObj.isDown === true) {
       this.penelope.x = this.penelope.x + 16
-      this.penelope.play('penelope_anim', true)
+      if (this.score >= 4) {
+        this.penelope.play('penelope_anim3', true)
+      }
+      else if (this.score == 2) {
+        this.penelope.play('penelope_anim2', true)
+      } 
+      else {
+        this.penelope.play('penelope_anim1', true)
+      }
     }
     if (keyRightObj.isUp === true && keyLeftObj.isUp === true) {
-      this.penelope.play('penelope_anim', false)
-      this.penelope.play('penelope_anim_standing', true)
+      this.penelope.play('penelope_anim3', false)
+      this.penelope.play('penelope_anim2', false)
+      this.penelope.play('penelope_anim1', false)
+      if (this.score >= 4) {
+        this.penelope.play('penelope_anim_standing3', true)
+      }
+      else if (this.score == 2) {
+        this.penelope.play('penelope_anim_standing2', true)
+      } 
+      else {
+        this.penelope.play('penelope_anim_standing1', true)
+      }
     }
     // if they get three strikes they are out
     if (this.strikes > 2) {
@@ -126,7 +168,7 @@ class GameScene extends Phaser.Scene {
     }
     // if they get a score of 100 and they have not been out yet, they win
     if (this.score > 100 && this.strikes < 3) {
-      this.scene.switch(transitionSceneOne)
+      this.scene.switch(gameSceneTwo)
     }
   } 
 }
