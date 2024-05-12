@@ -36,7 +36,7 @@ class GameScene extends Phaser.Scene {
     console.log("Game Scene")
     this.load.image('gameSceneBackground', '././assets/gameSceneBackground.jpg')
     this.load.spritesheet('penelope', '././assets/penelopeSceneOne.png', {
-      frameWidth: 1010,
+      frameWidth: 1020,
       frameHeight: 1000
     })
     this.load.image('beard', '././assets/beard.png')
