@@ -36,7 +36,7 @@ class GameScene extends Phaser.Scene {
     console.log("Game Scene")
     this.load.image('gameSceneBackground', '././assets/gameSceneBackground.jpg')
     this.load.spritesheet('penelope', '././assets/penelopeSceneOne.png', {
-      frameWidth: 1016,
+      frameWidth: 1010,
       frameHeight: 1000
     })
     this.load.image('beard', '././assets/beard.png')
@@ -51,9 +51,9 @@ class GameScene extends Phaser.Scene {
     this.gameScenebackground.y = 1080 / 2
     this.penelope = this.physics.add.sprite(1920 / 2, 1080 - 180, 'penelope').setScale(0.3)
     //  220x104 original size, 110x52 new size, the 'true' argument means "center it on the gameobject"
-    this.penelope.setSize(430, 720, true)
+    this.penelope.setSize(430, 700, true)
     // changes the position of the hitbox for the sprite 
-    this.penelope.body.setOffset(625 / 2, 1080 - 680)
+    this.penelope.body.setOffset(810 / 2, 1080 - 680)
 
     this.anims.create({
       key: "penelope_anim1",
@@ -82,11 +82,11 @@ class GameScene extends Phaser.Scene {
     })
     this.anims.create({
       key: "penelope_anim_standing2",
-      frames: this.anims.generateFrameNumbers("penelope", 7)
+      frames: this.anims.generateFrameNumbers("penelope", {start: 7, end: 7})
     })
     this.anims.create({
       key: "penelope_anim_standing3",
-      frames: this.anims.generateFrameNumbers("penelope", 14)
+      frames: this.anims.generateFrameNumbers("penelope", {start: 14, end: 14})
     })
 
 
@@ -158,15 +158,15 @@ class GameScene extends Phaser.Scene {
       this.penelope.play('penelope_anim3', false)
       this.penelope.play('penelope_anim2', false)
       this.penelope.play('penelope_anim1', false)
-      if (this.score >= 4) {
-        this.penelope.play('penelope_anim_standing3', true)
-      }
-      else if (this.score == 2) {
-        this.penelope.play('penelope_anim_standing2', true)
-      } 
-      else {
-        this.penelope.play('penelope_anim_standing1', true)
-      }
+    }
+    if (this.score >= 4 && (keyRightObj.isUp === true && keyLeftObj.isUp === true)) {
+      this.penelope.play('penelope_anim_standing3', true)
+    }
+    else if (this.score == 2 && (keyRightObj.isUp === true && keyLeftObj.isUp === true)) {
+      this.penelope.play('penelope_anim_standing2', true)
+    } 
+    else if (this.score < 2 && (keyRightObj.isUp === true && keyLeftObj.isUp === true)) {
+      this.penelope.play('penelope_anim_standing1', true)
     }
     // if they get three strikes they are out
     if (this.strikes > 2) {
