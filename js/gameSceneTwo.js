@@ -75,33 +75,68 @@ class GameSceneTwo extends Phaser.Scene {
     this.penelope.setCollideWorldBounds(true)
     //  Collide the player and platforms
     this.physics.add.collider(this.penelope, this.platforms);
-    // creates ground
+    // creates platforms
     this.ground1 = this.platforms.create(1920 - 1480, 1080 - 70, 'ground1').setScale(1).setAlpha(1).refreshBody()
     this.ground1.setSize(300, 10, true) 
-    //this.ground1.body.setOffset(625 / 2, 1080 - 680)
     
     this.ground2 = this.platforms.create(1920 - 920, 1080 - 70, 'ground2').setScale(1).setAlpha(1).refreshBody()
     this.ground2.setSize(270, 10, true) 
-    //this.ground2.body.setOffset(625 / 2, 1080 - 680)
     
     this.ground3 = this.platforms.create(1920 - 300, 1080 - 70, 'ground3').setScale(1).setAlpha(1).refreshBody()
     this.ground3.setSize(350, 10, true) 
-    //this.ground3.body.setOffset(625 / 2, 1080 - 680)
+
+    this.acidPuddle = this.platforms.create(1920/2, 1080 - 10, 'ground3').setScale(1).setAlpha(1).refreshBody()
+    this.acidPuddle.setSize(1920, 10, true) 
 
     this.acidDropGroup = this.add.group()
     this.createAcidDrop()
     this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
     // collisions between beards and penelope
-    this.physics.add.collider(this.acidDropGroup, this.penelope, function(acidDropCollide) {
+    this.physics.add.collider(this.acidDropGroup, this.penelope, function(acidDropCollide, penelopeCollide) {
       acidDropCollide.destroy()
+      penelopeCollide.destroy()
       //this.sound.play('vineBoom')
     }.bind(this))
 
-    this.physics.add.collider(this.acidDropGroup, this.ground1, this.ground2, this.ground3, function(acidDropCollide) {
+    this.physics.add.collider(this.acidDropGroup, this.ground1, function(acidDropCollide) {
+      acidDropCollide.destroy();
+      // Additional logic as needed
+      this.createAcidDrop()
+    }.bind(this))
+    this.physics.add.collider(this.acidDropGroup, this.ground2, function(acidDropCollide) {
       acidDropCollide.destroy()
+      
+      this.createAcidDrop()
+    }.bind(this))
+    this.physics.add.collider(this.acidDropGroup, this.ground3, function(acidDropCollide) {
+      acidDropCollide.destroy()
+    
+      this.createAcidDrop()
+    }.bind(this))
+
+    // collisions between beards and penelope
+    this.physics.add.collider(this.acidPuddle, this.penelope, function(acidDropCollide, penelopeCollide) {
+      acidDropCollide.destroy()
+      penelopeCollide.destroy()
       //this.sound.play('vineBoom')
-       this.createAcidDrop()
-       this.createAcidDrop()
+    }.bind(this))
+
+    this.physics.add.collider(this.acidDropGroup, this.acidPuddle, function(acidDropCollide) {
+      acidDropCollide.destroy();
+      // Additional logic as needed
+      this.createAcidDrop()
     }.bind(this))
   }
 
