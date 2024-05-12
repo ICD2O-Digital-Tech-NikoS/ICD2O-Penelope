@@ -57,21 +57,21 @@ class GameScene extends Phaser.Scene {
 
     this.anims.create({
       key: "penelope_anim1",
-      frames: this.anims.generateFrameNumbers("penelope", {start: 8, end: 13}),
+      frames: this.anims.generateFrameNumbers("penelope", {start: 1, end: 5}),
       frameRate: 20,
       repeat: -1
     })
 
     this.anims.create({
       key: "penelope_anim2",
-      frames: this.anims.generateFrameNumbers("penelope", {start: 15, end: 20}),
+      frames: this.anims.generateFrameNumbers("penelope", {start: 8, end: 12}),
       frameRate: 20,
       repeat: -1
     })
 
     this.anims.create({
       key: "penelope_anim3",
-      frames: this.anims.generateFrameNumbers("penelope", {start: 22, end: 27}),
+      frames: this.anims.generateFrameNumbers("penelope", {start: 15, end: 19}),
       frameRate: 20,
       repeat: -1
     })
@@ -86,7 +86,7 @@ class GameScene extends Phaser.Scene {
     })
     this.anims.create({
       key: "penelope_anim_standing3",
-      frames: this.anims.generateFrameNumbers("penelope", 21)
+      frames: this.anims.generateFrameNumbers("penelope", 14)
     })
 
 
