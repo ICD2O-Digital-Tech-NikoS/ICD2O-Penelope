@@ -36,7 +36,7 @@ class GameScene extends Phaser.Scene {
     console.log("Game Scene")
     this.load.image('gameSceneBackground', '././assets/gameSceneBackground.jpg')
     this.load.spritesheet('penelope', '././assets/penelopeSceneOne.png', {
-      frameWidth: 1000,
+      frameWidth: 1019,
       frameHeight: 1000
     })
     this.load.image('beard', '././assets/beard.png')
@@ -110,7 +110,7 @@ class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.beardGroup, this.penelope, function(beardCollide) {
       beardCollide.destroy()
       //this.sound.play('vineBoom')
-      this.score = this.score + 1
+      this.score = this.score + 2
       this.scoreText.setText('Score: ' + this.score.toString())
       this.createBeard()
       this.createBeard()
@@ -131,8 +131,14 @@ class GameScene extends Phaser.Scene {
 
     if (keyLeftObj.isDown === true) {
       this.penelope.x = this.penelope.x - 16
-      if (this.score == 2) {
+      if (this.score >= 4) {
+        this.penelope.playReverse('penelope_anim3', true)
+      }
+      else if (this.score == 2) {
         this.penelope.playReverse('penelope_anim2', true)
+      } 
+      else {
+        this.penelope.playReverse('penelope_anim1', true)
       }
     }
 
@@ -167,8 +173,8 @@ class GameScene extends Phaser.Scene {
       this.scene.switch('gameOverScene')
     }
     // if they get a score of 100 and they have not been out yet, they win
-    if (this.score > 100 && this.strikes < 3) {
-      this.scene.switch(gameSceneTwo)
+    if (this.score > 100) {
+      this.scene.start(gameSceneTwo)
     }
   } 
 }
