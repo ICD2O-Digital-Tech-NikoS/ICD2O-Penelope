@@ -43,10 +43,10 @@ class GameSceneTwo extends Phaser.Scene {
     this.gameScenebackground = this.add.image(0, 0, 'gameSceneTwoBackground')
     this.gameScenebackground.x = 1920 / 2
     this.gameScenebackground.y = 1080 / 2
-    this.penelope = this.physics.add.sprite(1920 / 2, 1080 - 300, 'penelope2').setScale(0.2)
+    this.penelope = this.physics.add.sprite(1920 / 2, 1080 - 300, 'penelope2').setScale(0.1)
     this.penelope.setBounce(0.2);
     //  220x104 original size, 110x52 new size, the 'true' argument means "center it on the gameobject"
-    this.penelope.setSize(430, 720, true)
+    this.penelope.setSize(215, 360, true)
     // changes the position of the hitbox for the sprite 
     this.penelope.body.setOffset(625 / 2, 1080 - 680)
     this.penelope.body.setGravityY(300)
@@ -74,9 +74,9 @@ class GameSceneTwo extends Phaser.Scene {
     //  Collide the player and platforms
     this.physics.add.collider(this.penelope, this.platforms);
     // creates ground
-    this.ground1 = this.platforms.create(1920 / 2, 1520, 'ground').setScale().setAlpha(0).refreshBody()
-    this.ground2 = this.platforms.create(1920 / 2, 1520, 'ground').setScale().setAlpha(0).refreshBody()
-    this.ground3 = this.platforms.create(1920 / 2, 1520, 'ground').setScale().setAlpha(0).refreshBody()
+    this.ground1 = this.platforms.create(1920 / 2, 1520, 'ground').setScale(0.2).setAlpha(0).refreshBody()
+    this.ground2 = this.platforms.create(1920 / 2, 1520, 'ground').setScale(0.2).setAlpha(0).refreshBody()
+    this.ground3 = this.platforms.create(1920 / 2, 1520, 'ground').setScale(0.2).setAlpha(0).refreshBody()
 
     this.acidDropGroup = this.add.group()
     this.createAcidDrop()
