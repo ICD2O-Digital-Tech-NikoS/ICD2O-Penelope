@@ -30,7 +30,7 @@ class GameSceneTwo extends Phaser.Scene {
     // really just to check if stuff is working
     console.log("Game Scene Two")
     this.load.image('gameSceneTwoBackground', '././assets/gameSceneTwoBackground.jpg')
-    this.load.spritesheet('penelope', '././assets/penelope.png', {
+    this.load.spritesheet('penelope', '././assets/penelopeSceneTwo.png', {
       frameWidth: 1000,
       frameHeight: 1000
     })
@@ -85,6 +85,8 @@ class GameSceneTwo extends Phaser.Scene {
     this.physics.add.collider(this.acidDropGroup, this.ground, function(acidDropCollide) {
       acidDropCollide.destroy()
       //this.sound.play('vineBoom')
+       createAcidDrop()
+       createAcidDrop()
     }.bind(this))
   }
 
