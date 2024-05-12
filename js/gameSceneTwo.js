@@ -35,7 +35,9 @@ class GameSceneTwo extends Phaser.Scene {
       frameHeight: 1000
     })
     this.load.image('acidDrop', '././assets/acidDrop.webp')
-    this.load.image('ground', '././assets/ground.png')
+    this.load.image('ground1', '././assets/ground1.png')
+    this.load.image('ground2', '././assets/ground2.png')
+    this.load.image('ground3', '././assets/ground3.png')
   }
 
   // used to create game objects and add specifications
@@ -46,10 +48,10 @@ class GameSceneTwo extends Phaser.Scene {
     this.penelope = this.physics.add.sprite(1920 / 2, 1080 - 300, 'penelope2').setScale(0.1)
     this.penelope.setBounce(0.2);
     //  220x104 original size, 110x52 new size, the 'true' argument means "center it on the gameobject"
-    this.penelope.setSize(215, 360, true)
+    this.penelope.setSize(300, 400, true)
     // changes the position of the hitbox for the sprite 
-    this.penelope.body.setOffset(625 / 2, 1080 - 680)
-    this.penelope.body.setGravityY(300)
+    this.penelope.body.setOffset(380, 570)
+    this.penelope.body.setGravityY(1000)
 
     this.anims.create({
       key: "penelope_anim",
@@ -74,9 +76,17 @@ class GameSceneTwo extends Phaser.Scene {
     //  Collide the player and platforms
     this.physics.add.collider(this.penelope, this.platforms);
     // creates ground
-    this.ground1 = this.platforms.create(1920 / 2, 1520, 'ground').setScale(0.2).setAlpha(0).refreshBody()
-    this.ground2 = this.platforms.create(1920 / 2, 1520, 'ground').setScale(0.2).setAlpha(0).refreshBody()
-    this.ground3 = this.platforms.create(1920 / 2, 1520, 'ground').setScale(0.2).setAlpha(0).refreshBody()
+    this.ground1 = this.platforms.create(1920 - 1480, 1080 - 70, 'ground1').setScale(1).setAlpha(1).refreshBody()
+    this.ground1.setSize(300, 10, true) 
+    //this.ground1.body.setOffset(625 / 2, 1080 - 680)
+    
+    this.ground2 = this.platforms.create(1920 - 920, 1080 - 70, 'ground2').setScale(1).setAlpha(1).refreshBody()
+    this.ground2.setSize(270, 10, true) 
+    //this.ground2.body.setOffset(625 / 2, 1080 - 680)
+    
+    this.ground3 = this.platforms.create(1920 - 300, 1080 - 70, 'ground3').setScale(1).setAlpha(1).refreshBody()
+    this.ground3.setSize(350, 10, true) 
+    //this.ground3.body.setOffset(625 / 2, 1080 - 680)
 
     this.acidDropGroup = this.add.group()
     this.createAcidDrop()
@@ -101,12 +111,12 @@ class GameSceneTwo extends Phaser.Scene {
     const keyUpObj = this.input.keyboard.addKey('UP')
 
     if (keyLeftObj.isDown === true) {
-      this.penelope.x = this.penelope.x - 9
+      this.penelope.x = this.penelope.x - 5
       this.penelope.playReverse('penelope_anim', true)
     } 
 
     if (keyRightObj.isDown === true) {
-      this.penelope.x = this.penelope.x + 9
+      this.penelope.x = this.penelope.x + 5
       this.penelope.play('penelope_anim', true)
     }
     if (keyRightObj.isUp === true && keyLeftObj.isUp === true) {
@@ -116,7 +126,7 @@ class GameSceneTwo extends Phaser.Scene {
 
     if (keyUpObj.isDown && this.penelope.body.touching.down)
     {
-        this.penelope.setVelocityY(-380);
+        this.penelope.setVelocityY(-700);
     }
   } 
 }
