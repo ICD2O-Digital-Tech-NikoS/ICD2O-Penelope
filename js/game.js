@@ -29,7 +29,7 @@ const transitionSceneTwo = new TransitionSceneTwo()
 // game configuration settings, dictionary of basic parameters for the game
 const config = {
   // sets the phaser type to the default type
-  type: Phaser.AUTO,
+  type: Phaser.CANVAS,
   width: 1920,
   height: 1080,
   physics: {
