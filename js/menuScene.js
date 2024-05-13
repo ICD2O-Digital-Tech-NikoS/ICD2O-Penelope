@@ -10,6 +10,7 @@ class MenuScene extends Phaser.Scene {
     super({key: "menuScene"})
     this.startButton = null
     this.menuSceneBackgroundImage = null
+    this.backgroundMusic = null
   }
   init(data) {
     // sets the background color
@@ -21,6 +22,7 @@ class MenuScene extends Phaser.Scene {
     // loads video and allows it to be used and customized for the scene (using create data)
     this.load.image('startButton', '././assets/startButton.png')
     this.load.image('menuSceneBackground', '././assets/menuSceneBackgroundImage.png')
+    this.load.audio('backgroundMusic', '././assets/backgroundMusic.mp3')
   }
 
 
@@ -30,6 +32,7 @@ class MenuScene extends Phaser.Scene {
     // coordinates for image
     this.menuSceneBackgroundImage.x = 1920 / 2
     this.menuSceneBackgroundImage.y = 1080 / 2
+    this.backgroundMusic = this.sound.add('backgroundMusic')
     this.startButton = this.add.sprite(1920 / 2, (1300 / 2) + 100, 'startButton').setScale(0.2)
     // gives button the property of interactive and makes the cursor turn into a hand when hovering over the button
     this.startButton.setInteractive({ useHandCursor : true })
@@ -43,6 +46,7 @@ class MenuScene extends Phaser.Scene {
   // starts tutorialScene when clicked
   clickButton () {
     this.scene.switch('tutorialScene')
+    this.backgroundMusic.play()
   }
 }
 

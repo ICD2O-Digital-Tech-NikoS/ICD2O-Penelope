@@ -35,7 +35,7 @@ const config = {
   physics: {
     default: 'arcade',
     arcade: {
-      debug: true
+      debug: false
     }
   },
   // set background color
@@ -63,4 +63,4 @@ game.scene.add('transitionSceneOne', transitionSceneOne)
 game.scene.add('gameSceneTwo', gameSceneTwo)
 game.scene.add('transitionSceneTwo', transitionSceneTwo)
 // start scene
-game.scene.start('gameSceneTwo')
+game.scene.start('gameScene')

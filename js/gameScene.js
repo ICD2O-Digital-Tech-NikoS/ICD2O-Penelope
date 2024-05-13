@@ -25,6 +25,9 @@ class GameScene extends Phaser.Scene {
     this.strikes = 0
     this.strikeText = null
     this.strikeTextStyle = { font: '65px Arial', fill: '#ffffff', align: 'center'}
+    this.penelopeRun = null
+    this.collectBeard = null
+    this.beardSizzle = null
   }
   init(data) {
     // sets the background color
@@ -42,6 +45,9 @@ class GameScene extends Phaser.Scene {
     this.load.image('beard', '././assets/beard.png')
     this.load.image('ground', '././assets/ground.png')
     this.load.image('gameOver', '././assets/gameOver.png')
+    this.load.audio('penelopeRun', '././assets/penelopeRun.mp3')
+    this.load.audio('beardCollect', '././assets/beardCollect.mp3')
+    this.load.audio('beardSizzle', '././assets/beardSizzle.mp3')
   }
 
   // used to create game objects and add specifications
@@ -49,6 +55,9 @@ class GameScene extends Phaser.Scene {
     this.gameScenebackground = this.add.image(0, 0, 'gameSceneBackground')
     this.gameScenebackground.x = 1920 / 2
     this.gameScenebackground.y = 1080 / 2
+    this.penelopeRun = this.sound.add('penelopeRun')
+    this.beardCollect = this.sound.add('beardCollect')
+    this.beardSizzle = this.sound.add('beardSizzle')
     this.penelope = this.physics.add.sprite(1920 / 2, 1080 - 180, 'penelope').setScale(0.3)
     //  220x104 original size, 110x52 new size, the 'true' argument means "center it on the gameobject"
     this.penelope.setSize(430, 700, true)
@@ -109,7 +118,7 @@ class GameScene extends Phaser.Scene {
     // collisions between beards and penelope
     this.physics.add.collider(this.beardGroup, this.penelope, function(beardCollide) {
       beardCollide.destroy()
-      //this.sound.play('vineBoom')
+      this.collectBeard.play()
       this.score = this.score + 2
       this.scoreText.setText('Score: ' + this.score.toString())
       this.createBeard()
@@ -118,7 +127,7 @@ class GameScene extends Phaser.Scene {
     
     this.physics.add.collider(this.beardGroup, this.ground, function(beardCollide) {
       beardCollide.destroy()
-      //this.sound.play('vineBoom')
+      this.beardSizzle.play()
       this.strikes = this.strikes + 1
       this.strikeText.setText('Strikes: ' + this.strikes.toString())
       this.createBeard()
@@ -131,6 +140,7 @@ class GameScene extends Phaser.Scene {
 
     if (keyLeftObj.isDown === true) {
       this.penelope.x = this.penelope.x - 16
+      this.penelopeRun.play()
       if (this.score >= 4) {
         this.penelope.playReverse('penelope_anim3', true)
       }
@@ -144,6 +154,7 @@ class GameScene extends Phaser.Scene {
 
     if (keyRightObj.isDown === true) {
       this.penelope.x = this.penelope.x + 16
+      this.penelopeRun.play()
       if (this.score >= 4) {
         this.penelope.play('penelope_anim3', true)
       }
@@ -155,6 +166,7 @@ class GameScene extends Phaser.Scene {
       }
     }
     if (keyRightObj.isUp === true && keyLeftObj.isUp === true) {
+      this.penelopeRun.stop()
       this.penelope.play('penelope_anim3', false)
       this.penelope.play('penelope_anim2', false)
       this.penelope.play('penelope_anim1', false)
@@ -171,10 +183,12 @@ class GameScene extends Phaser.Scene {
     // if they get three strikes they are out
     if (this.strikes > 2) {
       this.scene.switch('gameOverScene')
+      this.backgroundMusic.stop()
     }
     // if they get a score of 100 and they have not been out yet, they win
     if (this.score > 100) {
       this.scene.start('gameSceneTwo')
+      this.backgroundMusic.stop()
     }
   } 
 }
