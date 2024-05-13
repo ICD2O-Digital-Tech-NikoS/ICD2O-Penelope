@@ -85,7 +85,7 @@ class GameSceneTwo extends Phaser.Scene {
     this.ground3 = this.platforms.create(1920 - 300, 1080 - 70, 'ground3').setScale(1).setAlpha(1).refreshBody()
     this.ground3.setSize(350, 10, true) 
 
-    this.acidPuddle = this.platforms.create(1920/2, 1080 - 10, 'ground3').setScale(1).setAlpha(1).refreshBody()
+    this.acidPuddle = this.platforms.create(1920 / 2, 1080 - 10, 'ground3').setScale(1).setAlpha(1).refreshBody()
     this.acidPuddle.setSize(1920, 10, true) 
 
     this.acidDropGroup = this.add.group()
@@ -104,9 +104,10 @@ class GameSceneTwo extends Phaser.Scene {
     this.createAcidDrop()
     this.createAcidDrop()
     // collisions between beards and penelope
-    this.physics.add.collider(this.acidDropGroup, this.penelope, function(acidDropCollide, penelopeCollide) {
+    this.physics.add.collider(this.acidDropGroup, this.penelope, function (acidDropCollide) {
       acidDropCollide.destroy()
-      penelopeCollide.destroy()
+      this.physics.pause()
+      this.scene.start('gameOverScene')
       //this.sound.play('vineBoom')
     }.bind(this))
 
@@ -127,8 +128,8 @@ class GameSceneTwo extends Phaser.Scene {
     }.bind(this))
 
     // collisions between beards and penelope
-    this.physics.add.collider(this.acidPuddle, this.penelope, function(acidDropCollide, penelopeCollide) {
-      acidDropCollide.destroy()
+    this.physics.add.collider(this.acidPuddle, this.penelope, function(penelopeCollide) {
+      this.scene.start('gameOverScene')
       penelopeCollide.destroy()
       //this.sound.play('vineBoom')
     }.bind(this))
