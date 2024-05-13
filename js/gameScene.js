@@ -28,6 +28,7 @@ class GameScene extends Phaser.Scene {
     this.penelopeRun = null
     this.collectBeard = null
     this.beardSizzle = null
+    this.backgroundMusic = null
   }
   init(data) {
     // sets the background color
@@ -48,6 +49,7 @@ class GameScene extends Phaser.Scene {
     this.load.audio('penelopeRun', '././assets/penelopeRun.mp3')
     this.load.audio('beardCollect', '././assets/beardCollect.mp3')
     this.load.audio('beardSizzle', '././assets/beardSizzle.mp3')
+    this.load.audio('backgroundMusic', '././assets/backgroundMusic.mp3')
   }
 
   // used to create game objects and add specifications
@@ -58,6 +60,7 @@ class GameScene extends Phaser.Scene {
     this.penelopeRun = this.sound.add('penelopeRun')
     this.beardCollect = this.sound.add('beardCollect')
     this.beardSizzle = this.sound.add('beardSizzle')
+    this.backgroundMusic = this.sound.add('backgroundMusic')
     this.penelope = this.physics.add.sprite(1920 / 2, 1080 - 180, 'penelope').setScale(0.3)
     //  220x104 original size, 110x52 new size, the 'true' argument means "center it on the gameobject"
     this.penelope.setSize(430, 700, true)
@@ -118,7 +121,7 @@ class GameScene extends Phaser.Scene {
     // collisions between beards and penelope
     this.physics.add.collider(this.beardGroup, this.penelope, function(beardCollide) {
       beardCollide.destroy()
-      this.collectBeard.play()
+      this.beardCollect.play()
       this.score = this.score + 2
       this.scoreText.setText('Score: ' + this.score.toString())
       this.createBeard()
