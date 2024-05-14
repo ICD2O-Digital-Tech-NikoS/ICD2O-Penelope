@@ -147,12 +147,15 @@ class GameSceneTwo extends Phaser.Scene {
     }.bind(this))
 
     // collisions between acid puddle and penelope
-    this.physics.add.collider(this.acidPuddle, this.penelope, function(penelopeCollide))
+    this.physics.add.collider(this.penelope, this.acidPuddle, function() {
+      this.physics.pause()
+      this.scene.start('gameOverScene')
+    }.bind(this))
 
     // collision between acid drops and acid puddle
     this.physics.add.collider(this.acidDropGroup, this.acidPuddle, function(acidDropCollide) {
       acidDropCollide.destroy();
-      // Additional logic as needed
+      
       this.createAcidDrop()
     }.bind(this))
   }
