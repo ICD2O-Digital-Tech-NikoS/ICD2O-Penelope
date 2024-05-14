@@ -51,7 +51,6 @@ class GameScene extends Phaser.Scene {
     })
     this.load.image('beard', '././assets/beard.png')
     this.load.image('ground', '././assets/ground.png')
-    this.load.image('gameOver', '././assets/gameOver.png')
     this.load.audio('penelopeRun', '././assets/penelopeRun.mp3')
     this.load.audio('beardCollect', '././assets/beardCollect.mp3')
     this.load.audio('beardSizzle', '././assets/beardSizzle.mp3')

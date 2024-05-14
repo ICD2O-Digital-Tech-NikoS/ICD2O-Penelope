@@ -2,17 +2,19 @@
 // Created on: may 2024
 // This is the Game Scene
 
+
 // class for the game scene two
 class GameSceneTwo extends Phaser.Scene {
   // create an acid drop
   createAcidDrop() {
-    const acidDropVelocity = Math.floor(Math.random() * 121) + 80
+    const acidDropVelocity = Math.floor(Math.random() * 141) + 80
     const acidDropXLocation = Math.floor(Math.random() * 1920) + 1
     const acidDrop = this.physics.add.sprite(acidDropXLocation, -100, 'acidDrop').setAlpha(0.3).setScale(0.13)
+    acidDrop.setSize(25, 25)
     acidDrop.body.velocity.y = acidDropVelocity
     this.acidDropGroup.add(acidDrop)
-
   }
+  
   //method that constructs keywords
   constructor() {
     super({key: "gameSceneTwo"})
@@ -20,9 +22,8 @@ class GameSceneTwo extends Phaser.Scene {
     this.acidPuddle = null
     this.penelope = null
     this.acidDrop = null
-    //this.timerText = 0
-    //this.timedEvent
-    
+    this.theBeard = null
+    this.backgroundMusic = null
   }
   init(data) {
     // sets the background color
@@ -41,21 +42,23 @@ class GameSceneTwo extends Phaser.Scene {
     this.load.image('ground1', '././assets/ground1.png')
     this.load.image('ground2', '././assets/ground2.png')
     this.load.image('ground3', '././assets/ground3.png')
+    this.load.image('ground4', '././assets/ground4.png')
+    this.load.image('beard', '././assets/beard2.png')
+    this.load.audio('backgroundMusic', '././assets/marioBackgroundMusic.mp3')
   }
 
   // used to create game objects and add specifications
   create(data) {
-
-    //this.timerText = this.add.text(32, 32, 'Countdown: ' + this.formatTime(this.initialTime))
-    // Each 1000 ms call onEvent
-    //this.timedEvent = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true })
-    
+    this.backgroundMusic = this.sound.add('backgroundMusic')
+    this.backgroundMusic.play()
     this.gameScenebackground = this.add.image(0, 0, 'gameSceneTwoBackground')
     this.gameScenebackground.x = 1920 / 2
     this.gameScenebackground.y = 1080 / 2
+    this.beard = this.physics.add.sprite(1920 / 2, 1080 - 800, 'beard').setScale(0.75)
+    this.beard.setSize(200, 200)
     this.penelope = this.physics.add.sprite(1920 / 2, 1080 - 300, 'penelope2').setScale(0.1)
     // gives penelope a slight bounce, you can see when loads in
-    this.penelope.setBounce(0.2);
+   
     //  220x104 original size, 110x52 new size, the 'true' argument means "center it on the gameobject"
     this.penelope.setSize(300, 400, true)
     // changes the position of the hitbox for the sprite 
@@ -88,17 +91,34 @@ class GameSceneTwo extends Phaser.Scene {
     //  Collide the player and platforms
     this.physics.add.collider(this.penelope, this.platforms);
     // creates platforms
-    this.ground1 = this.platforms.create(1920 - 1480, 1080 - 70, 'ground1').setScale(1).setAlpha(1).refreshBody()
+    this.ground1 = this.platforms.create(1920 - 1480, 1080 - 70, 'ground1').setScale(1).setAlpha(0).refreshBody()
     this.ground1.setSize(300, 10, true) 
 
     // creates more platforms
-    this.ground2 = this.platforms.create(1920 - 920, 1080 - 70, 'ground2').setScale(1).setAlpha(1).refreshBody()
+    this.ground2 = this.platforms.create(1920 - 920, 1080 - 70, 'ground2').setScale(1).setAlpha(0).refreshBody()
     this.ground2.setSize(270, 10, true) 
 
     // creates even more platforms
-    this.ground3 = this.platforms.create(1920 - 300, 1080 - 70, 'ground3').setScale(1).setAlpha(1).refreshBody()
+    this.ground3 = this.platforms.create(1920 - 300, 1080 - 70, 'ground3').setScale(1).setAlpha(0).refreshBody()
     this.ground3.setSize(350, 10, true) 
 
+    this.airPlatformOne = this.platforms.create(1920 - 570, 1080 - 310, 'ground4').setScale(1).setAlpha(1).refreshBody()
+    this.airPlatformOne.setSize(200, 10, true)
+
+    this.airPlatformTwo = this.platforms.create(1920 - 1200, 1080 - 310, 'ground4').setScale(1).setAlpha(1).refreshBody()
+    this.airPlatformTwo.setSize(200, 10, true)
+
+    this.airPlatformThree = this.platforms.create(1920 - 1800, 1080 - 310, 'ground4').setScale(1).setAlpha(1).refreshBody()
+    this.airPlatformThree.setSize(200, 10, true)
+
+    this.airPlatformFour = this.platforms.create(1920 - 1450, 1080 - 510, 'ground4').setScale(1).setAlpha(1).refreshBody()
+    this.airPlatformFour.setSize(110, 10, true)
+
+    this.airPlatformFive = this.platforms.create(1920 - 450, 1080 - 510, 'ground4').setScale(1).setAlpha(1).refreshBody()
+    this.airPlatformFive.setSize(110, 10, true)
+    
+    this.airPlatformSix = this.platforms.create(1920 - 350, 1080 - 710, 'ground4').setScale(1).setAlpha(1).refreshBody()
+    this.airPlatformSix.setSize(100, 10, true)
     // creates acid puddle on the ground
     this.acidPuddle = this.physics.add.sprite(0, 0, 'ground3').setScale(1).refreshBody().setAlpha(0)
     this.acidPuddle.x = 1920 / 2
@@ -123,12 +143,29 @@ class GameSceneTwo extends Phaser.Scene {
     this.createAcidDrop()
     this.createAcidDrop()
     this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
     // collisions between acid drops and penelope
     this.physics.add.collider(this.acidDropGroup, this.penelope, function (acidDropCollide) {
       acidDropCollide.destroy()
       this.physics.pause()
       this.scene.start('gameOverScene')
-      
+      this.backgroundMusic.stop()
     }.bind(this))
 
 
@@ -157,6 +194,7 @@ class GameSceneTwo extends Phaser.Scene {
     this.physics.add.collider(this.penelope, this.acidPuddle, function() {
       this.physics.pause()
       this.scene.start('gameOverScene')
+      this.backgroundMusic.stop()
     }.bind(this))
 
     // collision between acid drops and acid puddle
@@ -165,20 +203,19 @@ class GameSceneTwo extends Phaser.Scene {
       
       this.createAcidDrop()
     }.bind(this))
+
+    this.physics.add.collider(this.beard, this.penelope, function(beardCollide) {
+      beardCollide.destroy()
+      this.backgroundMusic.stop()
+      //this.beardCollect.play()
+      //this.scene.start('gameSceneThree')
+    }.bind(this))
   }
 
-  //formatTime(seconds){
-      // Seconds
-      //this.partInSeconds = seconds%60
-      // Adds left zeros to seconds
-      //this.partInSeconds = this.partInSeconds.toString().padStart(2,'0')
-      // Returns formated time
-      //return `${this.partInSeconds}`
-  //}
+  
 
   update(time, delta) {
-    // this.initialTime -= 1; // One second
-    // this.timerText.setText('Countdown: ' + formatTime(this.initialTime))
+    
     // user key inputs
     const keyLeftObj = this.input.keyboard.addKey('LEFT') 
     const keyRightObj = this.input.keyboard.addKey('RIGHT')
@@ -203,7 +240,7 @@ class GameSceneTwo extends Phaser.Scene {
     // sets jump height
     if (keyUpObj.isDown && this.penelope.body.touching.down)
     {
-        this.penelope.setVelocityY(-700)
+        this.penelope.setVelocityY(-710)
     }
   } 
 }
