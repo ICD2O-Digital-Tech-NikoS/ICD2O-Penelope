@@ -20,7 +20,9 @@ class GameSceneTwo extends Phaser.Scene {
     this.acidPuddle = null
     this.penelope = null
     this.acidDrop = null
-    this.timer = 0
+    //this.timerText = 0
+    //this.timedEvent
+    
   }
   init(data) {
     // sets the background color
@@ -43,6 +45,11 @@ class GameSceneTwo extends Phaser.Scene {
 
   // used to create game objects and add specifications
   create(data) {
+
+    //this.timerText = this.add.text(32, 32, 'Countdown: ' + this.formatTime(this.initialTime))
+    // Each 1000 ms call onEvent
+    //this.timedEvent = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true })
+    
     this.gameScenebackground = this.add.image(0, 0, 'gameSceneTwoBackground')
     this.gameScenebackground.x = 1920 / 2
     this.gameScenebackground.y = 1080 / 2
@@ -160,7 +167,18 @@ class GameSceneTwo extends Phaser.Scene {
     }.bind(this))
   }
 
+  //formatTime(seconds){
+      // Seconds
+      //this.partInSeconds = seconds%60
+      // Adds left zeros to seconds
+      //this.partInSeconds = this.partInSeconds.toString().padStart(2,'0')
+      // Returns formated time
+      //return `${this.partInSeconds}`
+  //}
+
   update(time, delta) {
+    // this.initialTime -= 1; // One second
+    // this.timerText.setText('Countdown: ' + formatTime(this.initialTime))
     // user key inputs
     const keyLeftObj = this.input.keyboard.addKey('LEFT') 
     const keyRightObj = this.input.keyboard.addKey('RIGHT')
@@ -185,7 +203,7 @@ class GameSceneTwo extends Phaser.Scene {
     // sets jump height
     if (keyUpObj.isDown && this.penelope.body.touching.down)
     {
-        this.penelope.setVelocityY(-700);
+        this.penelope.setVelocityY(-700)
     }
   } 
 }
