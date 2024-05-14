@@ -13,14 +13,11 @@ class GameSceneTwo extends Phaser.Scene {
     this.acidDropGroup.add(acidDrop)
 
   }
-  testCollide () {
-    this.physics.pause()
-    this.switch.scene('gameOverScene')
-  }
   //method that constructs keywords
   constructor() {
     super({key: "gameSceneTwo"})
     this.gameSceneTwoBackground = null
+    this.acidPuddle = null
     this.penelope = null
     this.acidDrop = null
     this.timer = 0
@@ -96,9 +93,13 @@ class GameSceneTwo extends Phaser.Scene {
     this.ground3.setSize(350, 10, true) 
 
     // creates acid puddle on the ground
-    this.acidPuddle = this.platforms.create(1920 / 2, 1080 - 20, 'ground3').setScale(1).setAlpha(1).refreshBody()
+    this.acidPuddle = this.physics.add.sprite(0, 0, 'ground3').setScale(1).refreshBody().setAlpha(0)
+    this.acidPuddle.x = 1920 / 2
+    this.acidPuddle.y = 1080 - 450
     this.acidPuddle.setSize(1920, 10, true) 
-
+    this.acidPuddle.body.setOffset(0, 950)
+    this.acidPuddle.setImmovable(true)
+    
     // creates acid drops
     this.acidDropGroup = this.add.group()
     this.createAcidDrop()
@@ -146,7 +147,7 @@ class GameSceneTwo extends Phaser.Scene {
     }.bind(this))
 
     // collisions between acid puddle and penelope
-    this.physics.add.collider(this.acidPuddle, this.penelope, this.testCollide)
+    this.physics.add.collider(this.acidPuddle, this.penelope, function(penelopeCollide))
 
     // collision between acid drops and acid puddle
     this.physics.add.collider(this.acidDropGroup, this.acidPuddle, function(acidDropCollide) {
