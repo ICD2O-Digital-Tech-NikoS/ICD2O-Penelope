@@ -31,7 +31,7 @@ class GameOverScene extends Phaser.Scene {
   } 
   // starts gameScene when clicked
   
-  this.scene.start('menuScene')
+  // this.scene.start('menuScene')
 }
 
 export default GameOverScene

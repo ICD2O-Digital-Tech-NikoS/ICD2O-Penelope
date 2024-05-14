@@ -32,7 +32,7 @@ class MenuScene extends Phaser.Scene {
     // coordinates for image
     this.menuSceneBackgroundImage.x = 1920 / 2
     this.menuSceneBackgroundImage.y = 1080 / 2
-    this.backgroundMusic = this.sound.add('backgroundMusic')
+    this.backgroundMusic = this.sound.add('backgroundMusic', {volume: 0.12})
     this.startButton = this.add.sprite(1920 / 2, (1300 / 2) + 100, 'startButton').setScale(0.2)
     // gives button the property of interactive and makes the cursor turn into a hand when hovering over the button
     this.startButton.setInteractive({ useHandCursor : true })
