@@ -1,6 +1,6 @@
 // Created by: Niko
 // Created on: may 2024
-// This is the Game Scene
+// This is the Game Scene two
 
 
 // class for the game scene two

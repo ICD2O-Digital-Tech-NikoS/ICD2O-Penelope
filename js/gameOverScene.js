@@ -1,8 +1,8 @@
 // Created by: Niko
 // Created on: may 2024
-// This is the Tutorial Scene
+// This is the game over Scene
 
-// class for the game scene
+// class for the game over scene
 class GameOverScene extends Phaser.Scene {
 
   //method that constructs keywords
