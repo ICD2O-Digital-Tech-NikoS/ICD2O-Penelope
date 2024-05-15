@@ -43,7 +43,7 @@ class GameSceneTwo extends Phaser.Scene {
     this.load.image('ground2', '././assets/ground2.png')
     this.load.image('ground3', '././assets/ground3.png')
     this.load.image('ground4', '././assets/ground4.png')
-    this.load.image('beard', '././assets/beard2.png')
+    this.load.image('beard2', '././assets/beard2.png')
     this.load.audio('backgroundMusic', '././assets/marioBackgroundMusic.mp3')
   }
 
@@ -54,8 +54,8 @@ class GameSceneTwo extends Phaser.Scene {
     this.gameScenebackground = this.add.image(0, 0, 'gameSceneTwoBackground')
     this.gameScenebackground.x = 1920 / 2
     this.gameScenebackground.y = 1080 / 2
-    this.beard = this.physics.add.sprite(1920 / 2, 1080 - 800, 'beard').setScale(0.75)
-    this.beard.setSize(200, 200)
+    this.theBeard = this.physics.add.sprite(1920 / 2, 1080 - 800, 'beard2').setScale(0.75)
+    this.theBeard.setSize(200, 200)
     this.penelope = this.physics.add.sprite(1920 / 2, 1080 - 300, 'penelope2').setScale(0.1)
     // gives penelope a slight bounce, you can see when loads in
    
@@ -204,7 +204,7 @@ class GameSceneTwo extends Phaser.Scene {
       this.createAcidDrop()
     }.bind(this))
 
-    this.physics.add.collider(this.beard, this.penelope, function(beardCollide) {
+    this.physics.add.collider(this.theBeard, this.penelope, function(beardCollide) {
       beardCollide.destroy()
       this.backgroundMusic.stop()
       //this.beardCollect.play()
