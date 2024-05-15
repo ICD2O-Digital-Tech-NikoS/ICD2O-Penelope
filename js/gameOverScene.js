@@ -8,7 +8,7 @@ class GameOverScene extends Phaser.Scene {
   //method that constructs keywords
   constructor() {
     super({key: "gameOverScene"})
-    this.GameOverVideo = null
+    this.gameOverVideo = null
   }
   init(data) {
     // sets the background color
@@ -18,20 +18,19 @@ class GameOverScene extends Phaser.Scene {
   preload() {
     // really just to check if stuff is working
     console.log("Game Over Scene")
+    this.load.video('gameOverVideo', 'assets/gameOverVideo.mp4')
   }
 
   // used to create game objects and add specifications
   create(data) {
-    
-    // gives button the property of interactive and makes the cursor turn into a hand when hovering over the button
-    //when the cursor is on and, pointer down meaning click essentially happens, it runs the code or function
+    this.gameOverVideo = this.add.video(1920 / 2, 1080 / 2, 'gameOverVideo')
+    this.gameOverVideo.play()
+    this.gameOverVideo.on('complete', 'menuScene')
   }
 
   update(time, delta) {
   } 
-  // starts gameScene when clicked
   
-  // this.scene.start('menuScene')
 }
 
 export default GameOverScene
