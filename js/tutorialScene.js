@@ -36,7 +36,7 @@ class TutorialScene extends Phaser.Scene {
   } 
   // starts gameScene when clicked
   clickButton () {
-    this.scene.start('gameScene')
+    this.scene.start('gameScene') 
   }
 }
 

@@ -9,6 +9,7 @@ class GameOverScene extends Phaser.Scene {
   constructor() {
     super({key: "gameOverScene"})
     this.gameOverVideo = null
+    //this.restartButton = null
   }
   init(data) {
     // sets the background color
@@ -19,18 +20,19 @@ class GameOverScene extends Phaser.Scene {
     // really just to check if stuff is working
     console.log("Game Over Scene")
     this.load.video('gameOverVideo', 'assets/gameOverVideo.mp4')
+    //this.load.image('restartButton', 'assets/restartButton.png')
   }
-
   // used to create game objects and add specifications
   create(data) {
     this.gameOverVideo = this.add.video(1920 / 2, 1080 / 2, 'gameOverVideo')
     this.gameOverVideo.play()
-    this.gameOverVideo.on('complete', 'menuScene')
+    //this.restartButton = this.add.sprite(1920 / 2, 1080 / 2, 'restartButton').setScale(0.2)
+    //this.restartButton.setInteractive({ useHandCursor : true })
+    //this.restartButton.on('pointerdown', )
   }
 
   update(time, delta) {
   } 
   
 }
-
 export default GameOverScene

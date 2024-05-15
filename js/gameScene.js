@@ -15,7 +15,6 @@ class GameScene extends Phaser.Scene {
     aBeard.body.velocity.y = beardVelocity
     // adds beard to beard group
     this.beardGroup.add(aBeard)
-    
   }
   //method that constructs keywords, can be used to hold information about a certain thing
   constructor() {
@@ -172,7 +171,7 @@ class GameScene extends Phaser.Scene {
     
     // if user is pressing left key down, make penelope move left, play run sound, and depending on how many beards penelope collected, play a different animation
     if (keyLeftObj.isDown === true) {
-      this.penelope.x = this.penelope.x - 16
+      this.penelope.x = this.penelope.x - 20
     }
     if (this.score >= 4) {
       this.penelope.playReverse('penelope_anim3', true)
@@ -187,7 +186,7 @@ class GameScene extends Phaser.Scene {
 
     // if user is pressing right key down, make penelope move right, play run sound, and depending on how many beards penelope collected, play a different animation
     if (keyRightObj.isDown === true) {
-      this.penelope.x = this.penelope.x + 16
+      this.penelope.x = this.penelope.x + 20
       if (this.score >= 4) {
         this.penelope.play('penelope_anim3', true)
       }

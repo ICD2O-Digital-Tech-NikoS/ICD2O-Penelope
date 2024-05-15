@@ -63,4 +63,4 @@ game.scene.add('transitionSceneOne', transitionSceneOne)
 game.scene.add('gameSceneTwo', gameSceneTwo)
 game.scene.add('transitionSceneTwo', transitionSceneTwo)
 // start scene
-game.scene.start('splashScene')
+game.scene.start('menuScene')
