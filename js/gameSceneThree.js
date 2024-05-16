@@ -83,7 +83,15 @@ class GameSceneThree extends Phaser.Scene {
   }
 
   seedFollows () {
-    this.physics.moveToObject(this.seedGroup, this.penelope, 100)
+
+    this.seedGroup.children.each( (seed) => {
+      console.log("RUNNING")
+    const penelopeX = this.penelope.x
+    const penelopeY = this.penelope.y
+    if (penelopeX != seed.x) {
+      this.physics.moveToObject(seed, this.penelope, 150)
+    }
+    })
   }
 
   update(time, delta) {
