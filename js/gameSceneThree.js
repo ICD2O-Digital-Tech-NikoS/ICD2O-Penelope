@@ -6,15 +6,16 @@
 // class for the game scene three
 class GameSceneThree extends Phaser.Scene {
   // create an acid drop
-  //createSeed() {
-    //const seed = this.physics.add.sprite(0,0, 'seed').setScale(0.13)
-    //seed.setSize(25, 25)
-    //this.seedGroup.add(seedDrop)
-  //}
+  createSeed() {
+    const seed = this.physics.add.sprite(1920 / 2, 1080 / 2, 'seed').setScale(1)
+    seed.setSize(50, 50)
+    this.seedGroup.add(seed)
+    
+  }
 
   //method that constructs keywords
   constructor() {
-    super({key: "gameSceneTwo"})
+    super({key: "gameSceneThree"})
     this.gameSceneThreeBackground = null
     this.penelope = null
     this.seed = null
@@ -53,20 +54,22 @@ class GameSceneThree extends Phaser.Scene {
     this.penelope.body.setOffset(380, 570)
     this.penelope.setCollideWorldBounds(true)
 
+    this.seedGroup = this.add.group()
     // since penelope is not collecting anything, the animation would remain the same, this animation is for penelope walking
-    this.anims.create({
-      key: "penelope_anim",
-      frames: this.anims.generateFrameNumbers("penelope3", {start: 1, end: 5}),
-      frameRate: 20,
-      repeat: -1
-    })
+    //this.anims.create({
+      //key: "penelope_anim",
+      //frames: this.anims.generateFrameNumbers("penelope3", {start: 1, end: 5}),
+      //frameRate: 20,
+      //repeat: -1
+    //})
 
     // frame for standing
-    this.anims.create({
-      key: "penelope_anim_standing",
-      frames: this.anims.generateFrameNumbers("penelope3", 0)
-    })
-
+    //this.anims.create({
+      //key: "penelope_anim_standing",
+      //frames: this.anims.generateFrameNumbers("penelope3", 0)
+    //})
+    
+    this.cursors = this.input.keyboard.createCursorKeys()
 
     
     // collisions between acid drops and penelope
@@ -76,42 +79,35 @@ class GameSceneThree extends Phaser.Scene {
       //this.scene.start('gameOverScene')
       //this.backgroundMusic.stop()
     //}.bind(this))
+    this.createSeed()
   }
 
-
+  seedFollows () {
+      this.physics.moveToObject(this.seedGroup, this.penelope, 100);
+  }
 
   update(time, delta) {
-
-    // user key inputs
-    const keyLeftObj = this.input.keyboard.addKey('LEFT') 
-    const keyRightObj = this.input.keyboard.addKey('RIGHT')
-    const keyUpObj = this.input.keyboard.addKey('UP')
-    const keyDownObj = this.input.keyboard.addKey('DOWN')
-    const keySpaceObj = this.input.keyboard.addKey('SPACE')
-
-    // walking left plays the walking right animation in reverse
-    if (keyLeftObj.isDown === true) {
+    this.seedFollows()
+    if (this.cursors.left.isDown)
+    {
       this.penelope.x = this.penelope.x - 5
-      this.penelope.playReverse('penelope_anim', true)
-    } 
-    // walking right plays the walking right animation
-    if (keyRightObj.isDown === true) {
+    }
+    else if (this.cursors.right.isDown)
+    {
       this.penelope.x = this.penelope.x + 5
-      this.penelope.play('penelope_anim', true)
     }
-    // walking up plays the walking up animation
-    if (keyUpObj.isDown === true) {
-      this.penelope.x = this.penelope.y - 5
+    
+
+    if (this.cursors.up.isDown)
+    {
+      this.penelope.y = this.penelope.y - 5
     }
-    // walking down plays the walking down animation
-    if (keyDownObj.isDown === true) {
+    else if (this.cursors.down.isDown) {
       this.penelope.y = this.penelope.y + 5
     }
-    // plays standing frame
-    if (keyRightObj.isUp === true && keyLeftObj.isUp === true) {
-      this.penelope.play('penelope_anim', false)
-      this.penelope.play('penelope_anim_standing', true)
-    }
+    //if (cursors.space.isDown) {
+      
+    //}
   } 
 }
 

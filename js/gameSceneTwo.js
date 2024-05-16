@@ -112,13 +112,13 @@ class GameSceneTwo extends Phaser.Scene {
     this.airPlatformThree.setSize(200, 10, true)
 
     this.airPlatformFour = this.platforms.create(1920 - 1450, 1080 - 510, 'ground4').setScale(1).setAlpha(1).refreshBody()
-    this.airPlatformFour.setSize(110, 10, true)
+    this.airPlatformFour.setSize(150, 10, true)
 
     this.airPlatformFive = this.platforms.create(1920 - 450, 1080 - 510, 'ground4').setScale(1).setAlpha(1).refreshBody()
-    this.airPlatformFive.setSize(110, 10, true)
+    this.airPlatformFive.setSize(150, 10, true)
     
     this.airPlatformSix = this.platforms.create(1920 - 350, 1080 - 710, 'ground4').setScale(1).setAlpha(1).refreshBody()
-    this.airPlatformSix.setSize(100, 10, true)
+    this.airPlatformSix.setSize(150, 10, true)
     // creates acid puddle on the ground
     this.acidPuddle = this.physics.add.sprite(0, 0, 'ground3').setScale(1).refreshBody().setAlpha(0)
     this.acidPuddle.x = 1920 / 2
@@ -223,12 +223,12 @@ class GameSceneTwo extends Phaser.Scene {
 
     // walking left plays the walking right animation in reverse
     if (keyLeftObj.isDown === true) {
-      this.penelope.x = this.penelope.x - 5
+      this.penelope.x = this.penelope.x - 6
       this.penelope.playReverse('penelope_anim', true)
     } 
     // walking right plays the walking right animation
     if (keyRightObj.isDown === true) {
-      this.penelope.x = this.penelope.x + 5
+      this.penelope.x = this.penelope.x + 6
       this.penelope.play('penelope_anim', true)
     }
     // plays standing frame

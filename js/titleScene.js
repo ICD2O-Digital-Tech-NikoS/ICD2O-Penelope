@@ -33,8 +33,7 @@ class TitleScene extends Phaser.Scene {
   update(time, delta) {
     if (time > 24000) {
       this.scene.switch('menuScene')
-    }  
-    // if time is greater than 3 seconds, set the text to null 
+    } 
   } 
 }
 
