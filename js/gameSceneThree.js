@@ -107,9 +107,14 @@ class GameSceneThree extends Phaser.Scene {
 
     
   }
-  penelopeAttack() {
-    this.attackHitBox.x = this.penelope.x
-    this.attackHitBox.y = this.penelope.y
+  // slams semi truck on ferral avocado seed
+  penelopeAttackRight() {
+    this.attackHitBox.x = this.penelope.x + this.penelope.width * 0.12
+    this.attackHitBox.y = this.penelope.y + this.penelope.height * 0.015
+  }
+  penelopeAttackLeft() {
+    this.attackHitBox.x = this.penelope.x - this.penelope.width * 0.12
+    this.attackHitBox.y = this.penelope.y + this.penelope.height * 0.015
   }
 
   seedFollows () {
@@ -142,12 +147,15 @@ class GameSceneThree extends Phaser.Scene {
     else if (this.cursors.down.isDown) {
       this.penelope.y = this.penelope.y + 5
     }
-    if (this.cursors.space.isDown) {
-      this.penelopeAttack()
+    if (this.cursors.space.isDown && this.cursors.right.isDown) {
+      this.penelopeAttackRight()
     } 
     else if (this.cursors.space.isUp) {
       this.attackHitBox.x = 0
       this.attackHitBox.y = 0
+    }
+    if (this.cursors.space.isDown && this.cursors.left.isDown) {
+      this.penelopeAttackLeft()
     }
   } 
 }
