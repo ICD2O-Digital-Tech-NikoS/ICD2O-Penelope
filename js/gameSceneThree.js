@@ -83,7 +83,7 @@ class GameSceneThree extends Phaser.Scene {
   }
 
   seedFollows () {
-      this.physics.moveToObject(this.seedGroup, this.penelope, 100);
+    this.physics.moveToObject(this.seedGroup, this.penelope, 100)
   }
 
   update(time, delta) {
@@ -106,7 +106,7 @@ class GameSceneThree extends Phaser.Scene {
       this.penelope.y = this.penelope.y + 5
     }
     //if (cursors.space.isDown) {
-      
+    
     //}
   } 
 }
