@@ -15,6 +15,7 @@ import GameOverScene from "./gameOverScene.js"
 import TransitionSceneOne from "./transitionSceneOne.js"
 import GameSceneTwo from "./gameSceneTwo.js"
 import TransitionSceneTwo from "./transitionSceneTwo.js"
+import GameSceneThree from "./gameSceneThree.js"
 // create the new scenes as a variable
 const splashScene = new SplashScene()
 const titleScene = new TitleScene()
@@ -26,6 +27,7 @@ const transitionSceneOne = new TransitionSceneOne()
 const gameOverScene = new GameOverScene()
 const gameSceneTwo = new GameSceneTwo()
 const transitionSceneTwo = new TransitionSceneTwo()
+const gameSceneThree = new GameSceneThree()
 // game configuration settings, dictionary of basic parameters for the game
 const config = {
   // sets the phaser type to the default type
@@ -62,5 +64,6 @@ game.scene.add('gameOverScene', gameOverScene)
 game.scene.add('transitionSceneOne', transitionSceneOne)
 game.scene.add('gameSceneTwo', gameSceneTwo)
 game.scene.add('transitionSceneTwo', transitionSceneTwo)
+game.scene.add('gameSceneThree', gameSceneThree)
 // start scene
-game.scene.start('menuScene')
+game.scene.start('gameSceneTwo')

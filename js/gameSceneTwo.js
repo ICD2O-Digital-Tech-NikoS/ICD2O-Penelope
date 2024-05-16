@@ -18,7 +18,7 @@ class GameSceneTwo extends Phaser.Scene {
   //method that constructs keywords
   constructor() {
     super({key: "gameSceneTwo"})
-    this.gameSceneTwoBackground = null
+    this.gameSceneBackground = null
     this.acidPuddle = null
     this.penelope = null
     this.acidDrop = null
@@ -208,7 +208,7 @@ class GameSceneTwo extends Phaser.Scene {
       beardCollide.destroy()
       this.backgroundMusic.stop()
       //this.beardCollect.play()
-      //this.scene.start('gameSceneThree')
+      this.scene.start('gameSceneThree')
     }.bind(this))
   }
 
