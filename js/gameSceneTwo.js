@@ -74,7 +74,7 @@ class GameSceneTwo extends Phaser.Scene {
       repeat: -1
     })
 
-    // frame for standing
+    // frame for  standing
     this.anims.create({
       key: "penelope_anim_standing",
       frames: this.anims.generateFrameNumbers("penelope2", 0)

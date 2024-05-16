@@ -7,10 +7,21 @@
 class GameSceneThree extends Phaser.Scene {
   // create an acid drop
   createSeed() {
-    const seed = this.physics.add.sprite(1920 / 2, 1080 / 2, 'seed').setScale(1)
+    // Define the array of coordinate pairs
+    const spawnOne = { x: 1920 - 1400, y: 1080 - 300 };
+    const spawnTwo = { x: 1920 - 400, y: 1080 - 700 };
+    const spawnThree = { x: 1920 - 1400, y: 1080 - 700 };
+    const spawnFour = { x: 1920 - 400, y: 1080 - 300 };
+
+    const spawnArr = [spawnOne, spawnTwo, spawnThree, spawnFour];
+    const randomSpawn = spawnArr[Math.floor(Math.random() * spawnArr.length)]
+
+    const seedX = randomSpawn.x;
+    const seedY = randomSpawn.y;
+  
+    const seed = this.physics.add.sprite(seedX, seedY, 'seed').setScale(1)
     seed.setSize(50, 50)
     this.seedGroup.add(seed)
-    
   }
 
   //method that constructs keywords
@@ -20,6 +31,7 @@ class GameSceneThree extends Phaser.Scene {
     this.penelope = null
     this.seed = null
     this.backgroundMusic = null
+    this.attackHitBox = null
   }
   init(data) {
     // sets the background color
@@ -73,13 +85,31 @@ class GameSceneThree extends Phaser.Scene {
 
     
     // collisions between acid drops and penelope
-    //this.physics.add.collider(this.seedGroup, this.penelope, function (seedCollide) {
-      //seedCollide.destroy()
-      //this.physics.pause()
-      //this.scene.start('gameOverScene')
+    this.physics.add.collider(this.seedGroup, this.penelope, function (seedCollide) {
+      seedCollide.destroy()
+      this.physics.pause()
+      this.scene.start('gameOverScene')
       //this.backgroundMusic.stop()
-    //}.bind(this))
+    }.bind(this))
     this.createSeed()
+    this.createSeed()
+    this.createSeed()
+    this.createSeed()
+
+    this.attackHitBox = this.add.rectangle(0, 0, 32, 64, 0xffffff, 0.5)
+    this.physics.add.existing(this.attackHitBox)
+
+
+
+
+
+
+
+    
+  }
+  penelopeAttack() {
+    this.attackHitBox.x = this.penelope.x
+    this.attackHitBox.y = this.penelope.y
   }
 
   seedFollows () {
@@ -87,9 +117,8 @@ class GameSceneThree extends Phaser.Scene {
     this.seedGroup.children.each( (seed) => {
       console.log("RUNNING")
     const penelopeX = this.penelope.x
-    const penelopeY = this.penelope.y
     if (penelopeX != seed.x) {
-      this.physics.moveToObject(seed, this.penelope, 150)
+      this.physics.moveToObject(seed, this.penelope, 120)
     }
     })
   }
@@ -113,9 +142,13 @@ class GameSceneThree extends Phaser.Scene {
     else if (this.cursors.down.isDown) {
       this.penelope.y = this.penelope.y + 5
     }
-    //if (cursors.space.isDown) {
-    
-    //}
+    if (this.cursors.space.isDown) {
+      this.penelopeAttack()
+    } 
+    else if (this.cursors.space.isUp) {
+      this.attackHitBox.x = 0
+      this.attackHitBox.y = 0
+    }
   } 
 }
 
