@@ -7,7 +7,8 @@ class TitleScene extends Phaser.Scene {
 
   constructor() {
     super({key: "titleScene"})
-  
+    this.skipSceneText = null 
+    this.skipSceneTextStyle = { font: '35px Arial', fill: '#000000', align: 'center'}
     this.titleSceneAnimation = null
   }
   init(data) {
@@ -24,9 +25,12 @@ class TitleScene extends Phaser.Scene {
   create(data) {
     // adds video and sets coordinates, volume, and axis positions
     this.titleSceneAnimation = this.add.video(0, 0, 'titleSceneAnimation', {volume : 2})
+    this.titleSceneAnimation.setInteractive({ useHandCursor : true })
+    this.titleSceneAnimation.on('pointerdown', () => this.clickButton())
     this.titleSceneAnimation.x = 1920 / 2
     this.titleSceneAnimation.y = 1080 / 2
     this.titleSceneAnimation.play()
+    this.skipSceneText = this.add.text(1920 - 1850, 1080 - 200, 'Click to Skip', this.skipSceneTextStyle).setAlpha(0.5)
   }
   
   // says that if time becomes greater than the given time, then the scene will switch to the menu scene
@@ -34,7 +38,11 @@ class TitleScene extends Phaser.Scene {
     if (time > 24000) {
       this.scene.switch('menuScene')
     } 
-  } 
+  }
+  clickButton () {
+    this.scene.switch('menuScene')
+    this.titleSceneAnimation.stop()
+  }
 }
 
 export default TitleScene

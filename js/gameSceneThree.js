@@ -106,11 +106,6 @@ class GameSceneThree extends Phaser.Scene {
       this.createSeed()
     }.bind(this))                                   
 
-
-
-
-
-
     
   }
   // slams semi truck on ferral avocado seed

@@ -12,6 +12,8 @@ class GooseScene extends Phaser.Scene {
     this.gooseSceneBackgroundImage = null
     // variable for goose audio
     this.gooseAudio = null
+    this.skipSceneText = null
+    this.skipSceneTextStyle = { font: '35px Arial', fill: '#000000', align: 'center'}
   }
   init(data) {
     // sets the background color
@@ -30,11 +32,14 @@ class GooseScene extends Phaser.Scene {
   create(data) {
     // creates goose scene image sprite and sets where the axis that it will be placed on starts, and scales image
     this.gooseSceneBackgroundImage = this.add.sprite(0, 0, 'gooseSceneBackground').setScale(0.6)
+    this.gooseSceneBackgroundImage.setInteractive({ useHandCursor : true })
+    this.gooseSceneBackgroundImage.on('pointerdown', () => this.clickButton())
     // coordinates for image
     this.gooseSceneBackgroundImage.x = 1920 / 2
     this.gooseSceneBackgroundImage.y = 1080 / 2
     this.music = this.sound.add('gooseAudio')
     this.music.play()
+    this.skipSceneText = this.add.text(1920 - 1850, 1080 - 200, 'Click to Skip', this.skipSceneTextStyle).setAlpha(0.5)
   }
   // utilizes time for if statement to create a change after a certain amount of time passes
   update(time, delta) {
@@ -42,6 +47,10 @@ class GooseScene extends Phaser.Scene {
       this.scene.switch('titleScene')
     }  
   } 
+  clickButton () {
+    this.scene.switch('menuScene')
+    this.music.stop()
+  }
 }
 
 export default GooseScene

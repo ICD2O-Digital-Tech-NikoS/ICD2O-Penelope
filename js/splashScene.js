@@ -8,7 +8,6 @@ class SplashScene extends Phaser.Scene {
   //method that constructs keywords
   constructor() {
     super({key: "splashScene"})
-
     this.splashSceneBackgroundImage = null
     this.introAudio = null
   }
@@ -30,15 +29,15 @@ class SplashScene extends Phaser.Scene {
     this.splashSceneBackgroundImage = this.add.sprite(0, 0, 'splashSceneBackground').setScale(2)
     this.splashSceneBackgroundImage.x = 1920 / 2
     this.splashSceneBackgroundImage.y = 1080 / 2
-    this.music = this.sound.add('introAudio')
-    this.music.play()
+    this.introAudio = this.sound.add('introAudio')
+    this.Intro.play()
   }
   // utilizes time for if statement to create a change after a certain amount of time passes
   update(time, delta) {
     if (time > 8000) {
       this.scene.switch('gooseScene')
     }  
-    if (time > 25000) {
+    if (time > 2500) {
       this.music.stop()
     }  
   } 
