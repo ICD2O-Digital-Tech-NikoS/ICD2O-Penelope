@@ -8,10 +8,10 @@ class GameSceneThree extends Phaser.Scene {
   // create an acid drop
   createSeed() {
     // Define the array of coordinate pairs
-    const spawnOne = { x: 1920 - 1400, y: 1080 - 300 };
-    const spawnTwo = { x: 1920 - 400, y: 1080 - 700 };
-    const spawnThree = { x: 1920 - 1400, y: 1080 - 700 };
-    const spawnFour = { x: 1920 - 400, y: 1080 - 300 };
+    const spawnOne = { x: 1920 - 1700, y: 1080 - 200 };
+    const spawnTwo = { x: 1920 - 200, y: 1080 - 800 };
+    const spawnThree = { x: 1920 - 1700, y: 1080 - 800 };
+    const spawnFour = { x: 1920 - 200, y: 1080 - 200 };
 
     const spawnArr = [spawnOne, spawnTwo, spawnThree, spawnFour];
     const randomSpawn = spawnArr[Math.floor(Math.random() * spawnArr.length)]
@@ -20,7 +20,7 @@ class GameSceneThree extends Phaser.Scene {
     const seedY = randomSpawn.y;
   
     const seed = this.physics.add.sprite(seedX, seedY, 'seed').setScale(1)
-    seed.setSize(50, 50)
+    seed.setSize(70, 120)
     this.seedGroup.add(seed)
   }
 
@@ -32,6 +32,7 @@ class GameSceneThree extends Phaser.Scene {
     this.seed = null
     this.backgroundMusic = null
     this.attackHitBox = null
+    this.facingRight = true
   }
   init(data) {
     // sets the background color
@@ -96,9 +97,14 @@ class GameSceneThree extends Phaser.Scene {
     this.createSeed()
     this.createSeed()
 
-    this.attackHitBox = this.add.rectangle(0, 0, 32, 64, 0xffffff, 0.5)
+    this.attackHitBox = this.add.rectangle(0, 0, 110, 80, 0xffffff, 0.5)
     this.physics.add.existing(this.attackHitBox)
 
+    // collisions between acid drops and penelope
+    this.physics.add.collider(this.seedGroup, this.attackHitBox, function (seedCollide) {
+      seedCollide.destroy()
+      this.createSeed()
+    }.bind(this))                                   
 
 
 
@@ -109,11 +115,11 @@ class GameSceneThree extends Phaser.Scene {
   }
   // slams semi truck on ferral avocado seed
   penelopeAttackRight() {
-    this.attackHitBox.x = this.penelope.x + this.penelope.width * 0.12
+    this.attackHitBox.x = this.penelope.x + this.penelope.width * 0.10
     this.attackHitBox.y = this.penelope.y + this.penelope.height * 0.015
   }
   penelopeAttackLeft() {
-    this.attackHitBox.x = this.penelope.x - this.penelope.width * 0.12
+    this.attackHitBox.x = this.penelope.x - this.penelope.width * 0.10
     this.attackHitBox.y = this.penelope.y + this.penelope.height * 0.015
   }
 
@@ -123,7 +129,7 @@ class GameSceneThree extends Phaser.Scene {
       console.log("RUNNING")
     const penelopeX = this.penelope.x
     if (penelopeX != seed.x) {
-      this.physics.moveToObject(seed, this.penelope, 120)
+      this.physics.moveToObject(seed, this.penelope, 110)
     }
     })
   }
@@ -133,10 +139,12 @@ class GameSceneThree extends Phaser.Scene {
     if (this.cursors.left.isDown)
     {
       this.penelope.x = this.penelope.x - 5
+      this.facingRight = false
     }
     else if (this.cursors.right.isDown)
     {
       this.penelope.x = this.penelope.x + 5
+      this.facingRight = true
     }
     
 
@@ -147,14 +155,14 @@ class GameSceneThree extends Phaser.Scene {
     else if (this.cursors.down.isDown) {
       this.penelope.y = this.penelope.y + 5
     }
-    if (this.cursors.space.isDown && this.cursors.right.isDown) {
+    if (this.cursors.space.isDown && this.facingRight === true) {
       this.penelopeAttackRight()
     } 
     else if (this.cursors.space.isUp) {
       this.attackHitBox.x = 0
       this.attackHitBox.y = 0
     }
-    if (this.cursors.space.isDown && this.cursors.left.isDown) {
+    if (this.cursors.space.isDown && this.facingRight === false) {
       this.penelopeAttackLeft()
     }
   } 
