@@ -40,6 +40,7 @@ class TitleScene extends Phaser.Scene {
     } 
   }
   clickButton () {
+    this.sound.stopAll()
     this.scene.switch('menuScene')
     this.titleSceneAnimation.stop()
   }

@@ -43,11 +43,13 @@ class GooseScene extends Phaser.Scene {
   }
   // utilizes time for if statement to create a change after a certain amount of time passes
   update(time, delta) {
+    
     if (time > 16000) {
       this.scene.switch('titleScene')
     }  
   } 
   clickButton () {
+    this.sound.stopAll()
     this.scene.switch('menuScene')
     this.music.stop()
   }

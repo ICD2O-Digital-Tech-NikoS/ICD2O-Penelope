@@ -9,7 +9,7 @@ class GameOverScene extends Phaser.Scene {
   constructor() {
     super({key: "gameOverScene"})
     this.gameOverVideo = null
-    //this.restartButton = null
+
   }
   init(data) {
     // sets the background color

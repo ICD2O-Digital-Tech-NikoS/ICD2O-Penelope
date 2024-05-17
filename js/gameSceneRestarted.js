@@ -3,11 +3,11 @@
 // This is the Game Scene
 
 // class for the game scene
-class GameScene extends Phaser.Scene {
+class GameSceneRestarted extends Phaser.Scene {
   // create a beard
   createBeard() {
     // creates a random number between 40 and 170 for velocity
-    const beardVelocity = Math.floor(Math.random() * 101) + 70
+    const beardVelocity = Math.floor(Math.random() * 131) + 40
     // creates a random number for spawn location on the x axis
     const beardXLocation = Math.floor(Math.random() * 1920) + 1
     const aBeard = this.physics.add.sprite(beardXLocation, -100, 'beard').setScale(0.13)
@@ -18,7 +18,7 @@ class GameScene extends Phaser.Scene {
   }
   //method that constructs keywords, can be used to hold information about a certain thing
   constructor() {
-    super({key: "gameScene"})
+    super({key: "gameSceneRestarted"})
     this.gameSceneBackground = null
     this.penelope = null
     this.beard = null
@@ -153,22 +153,22 @@ class GameScene extends Phaser.Scene {
       this.createBeard()
     }.bind(this))
   }
-  
+
   update(time, delta) {
     // keyboard inputs
     const keyLeftObj = this.input.keyboard.addKey('LEFT') 
     const keyRightObj = this.input.keyboard.addKey('RIGHT')
-    
+
     if ((keyLeftObj.isDown === true || keyRightObj.isDown === true) && this.isRunning === false) {
         this.penelopeRun.play()
         this.isRunning = true
       }
-    
+
     if (keyLeftObj.isUp === true && keyRightObj.isUp === true) {
         this.penelopeRun.stop();
         this.isRunning = false;
     }
-    
+
     // if user is pressing left key down, make penelope move left, play run sound, and depending on how many beards penelope collected, play a different animation
     if (keyLeftObj.isDown === true) {
       this.penelope.x = this.penelope.x - 20
@@ -182,7 +182,7 @@ class GameScene extends Phaser.Scene {
     else {
       this.penelope.playReverse('penelope_anim1', true)
     }
-    
+
 
     // if user is pressing right key down, make penelope move right, play run sound, and depending on how many beards penelope collected, play a different animation
     if (keyRightObj.isDown === true) {
@@ -216,9 +216,6 @@ class GameScene extends Phaser.Scene {
     if (this.strikes > 2) {
       this.scene.switch('gameOverScene')
       this.backgroundMusic.stop()
-      this.registry.destroy();
-      //this.events.off();
-      //this.scene.restart();
     }
     // if they get a score of 100 and they have not been out yet, they win
     if (this.score > 100) {
@@ -226,10 +223,8 @@ class GameScene extends Phaser.Scene {
       this.backgroundMusic.stop()
       this.penelopeRun.stop();
       this.isRunning = false;
-      //this.registry.destroy();
-      //this.events.off();
     }
   }
 }
 
-export default GameScene
+export default GameSceneRestarted
