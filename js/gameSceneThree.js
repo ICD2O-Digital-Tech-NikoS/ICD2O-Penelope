@@ -110,12 +110,14 @@ class GameSceneThree extends Phaser.Scene {
   }
   // slams semi truck on ferral avocado seed
   penelopeAttackRight() {
-    this.attackHitBox.x = this.penelope.x + this.penelope.width * 0.10
-    this.attackHitBox.y = this.penelope.y + this.penelope.height * 0.015
+    this.attackHitBox.x = this.penelope.x
+    this.attackHitBox.y = this.penelope.y
+    this.attackHitBox.velocity.x = 100
   }
   penelopeAttackLeft() {
-    this.attackHitBox.x = this.penelope.x - this.penelope.width * 0.10
-    this.attackHitBox.y = this.penelope.y + this.penelope.height * 0.015
+    this.attackHitBox.x = this.penelope.x 
+    this.attackHitBox.y = this.penelope.y
+    this.attackHitBox.velocity.x = 100
   }
 
   seedFollows () {
