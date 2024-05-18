@@ -44,12 +44,12 @@ class GameSceneTwo extends Phaser.Scene {
     this.load.image('ground3', '././assets/ground3.png')
     this.load.image('ground4', '././assets/ground4.png')
     this.load.image('beard2', '././assets/beard2.png')
-    this.load.audio('backgroundMusic', '././assets/marioBackgroundMusic.mp3')
+    this.load.audio('backgroundMusic2', '././assets/marioBackgroundMusic.mp3')
   }
 
   // used to create game objects and add specifications
   create(data) {
-    this.backgroundMusic = this.sound.add('backgroundMusic')
+    this.backgroundMusic = this.sound.add('backgroundMusic2')
     this.backgroundMusic.play()
     this.gameScenebackground = this.add.image(0, 0, 'gameSceneTwoBackground')
     this.gameScenebackground.x = 1920 / 2
@@ -129,6 +129,17 @@ class GameSceneTwo extends Phaser.Scene {
     
     // creates acid drops
     this.acidDropGroup = this.add.group()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
+    this.createAcidDrop()
     this.createAcidDrop()
     this.createAcidDrop()
     this.createAcidDrop()
