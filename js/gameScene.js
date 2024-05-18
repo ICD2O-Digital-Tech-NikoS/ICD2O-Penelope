@@ -7,7 +7,7 @@ class GameScene extends Phaser.Scene {
   // create a beard
   createBeard() {
     // creates a random number between 40 and 170 for velocity
-    const beardVelocity = Math.floor(Math.random() * 101) + 70
+    const beardVelocity = Math.floor(Math.random() * 121) + 70
     // creates a random number for spawn location on the x axis
     const beardXLocation = Math.floor(Math.random() * 1920) + 1
     const aBeard = this.physics.add.sprite(beardXLocation, -100, 'beard').setScale(0.13)
@@ -33,6 +33,8 @@ class GameScene extends Phaser.Scene {
     this.beardSizzle = null
     this.backgroundMusic = null
     this.isRunning = false
+    this.gameOverText = null
+    this.gameOverTextStyle = { font: '65px Arial', fill: '#ffffff', align: 'center'}
   }
   init(data) {
     // sets the background color
@@ -214,20 +216,22 @@ class GameScene extends Phaser.Scene {
     }
     // if they get three strikes they are out
     if (this.strikes > 2) {
-      this.scene.switch('gameOverScene')
-      this.backgroundMusic.stop()
-      this.registry.destroy();
-      //this.events.off();
-      //this.scene.restart();
+      this.sound.stopAll()
+      this.physics.pause()
+      this.scene.start('gameOverScene')
+      this.score = 0
+      this.scoreText = this.add.text(10, 10, 'Score: ' + this.score.toString(), this.scoreTextStyle)
+      this.strikes = 0
+      this.strikeText = this.add.text(10, 70, 'Strikes: ' + this.strikes.toString(), this.strikeTextStyle)
     }
     // if they get a score of 100 and they have not been out yet, they win
     if (this.score > 100) {
       this.scene.start('gameSceneTwo')
-      this.backgroundMusic.stop()
-      this.penelopeRun.stop();
-      this.isRunning = false;
-      //this.registry.destroy();
-      //this.events.off();
+      this.score = 0
+      this.scoreText = this.add.text(10, 10, 'Score: ' + this.score.toString(), this.scoreTextStyle)
+      this.strikes = 0
+      this.strikeText = this.add.text(10, 70, 'Strikes: ' + this.strikes.toString(), this.strikeTextStyle)
+      this.sound.stopAll()
     }
   }
 }
