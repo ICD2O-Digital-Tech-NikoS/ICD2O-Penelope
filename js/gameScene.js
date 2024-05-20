@@ -226,7 +226,7 @@ class GameScene extends Phaser.Scene {
     }
     // if they get a score of 100 and they have not been out yet, they win
     if (this.score > 100) {
-      this.scene.start('gameSceneTwo')
+      this.scene.start('transitionSceneOne')
       this.score = 0
       this.scoreText = this.add.text(10, 10, 'Score: ' + this.score.toString(), this.scoreTextStyle)
       this.strikes = 0
