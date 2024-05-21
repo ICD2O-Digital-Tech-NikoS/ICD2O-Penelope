@@ -207,7 +207,7 @@ class GameSceneThree extends Phaser.Scene {
     // if the space bar is pressed and penelope was last facing left, penelope will attack with the left facing attack animation
     if ((this.cursors.space.isDown && this.facingRight === false) && (this.cursors.right.isUp && this.cursors.left.isUp)) {
       this.attackHitBox.body.velocity.x = -200
-      this.penelope.body.setOffset(670, 650)
+      this.penelope.body.setOffset(665, 650)
       this.penelope.play('penelope_attack_left', true)
     }
     else if ((this.cursors.space.isDown && this.facingRight === true) && (this.cursors.right.isUp && this.cursors.left.isUp)) {
@@ -221,8 +221,8 @@ class GameSceneThree extends Phaser.Scene {
     }
     if ((this.cursors.right.isUp && this.cursors.left.isUp) && (this.facingRight === false && this.cursors.space.isUp)) {
       this.penelope.play('penelope_anim_standing_left', true)
-      this.penelope.body.setOffset(670, 650)
-      this.attackHitBox.body.setOffset(50, 40)
+      this.penelope.body.setOffset(365, 650)
+      this.attackHitBox.body.setOffset(-10, 40)
     }
     if ((this.cursors.right.isUp && this.cursors.left.isUp) && (this.facingRight === true && this.cursors.space.isUp)) {
       this.penelope.play('penelope_anim_standing_right', true)
