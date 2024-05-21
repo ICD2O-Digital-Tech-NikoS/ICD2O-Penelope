@@ -33,6 +33,7 @@ class GameSceneThree extends Phaser.Scene {
     this.backgroundMusic = null
     this.attackHitBox = null
     this.facingRight = true
+    this.score = null
   }
   init(data) {
     // sets the background color
@@ -94,12 +95,12 @@ class GameSceneThree extends Phaser.Scene {
     this.anims.create({
       key: "penelope_attack_right",
       frames: this.anims.generateFrameNumbers("penelope3", {start: 10, end: 18}),
-      frameRate: 20,
+      frameRate: 15,
     })
     this.anims.create({
       key: "penelope_attack_left",
       frames: this.anims.generateFrameNumbers("penelope3", {start: 21, end: 28}),
-      frameRate: 20,
+      frameRate: 15,
     })
     this.cursors = this.input.keyboard.createCursorKeys()
 
@@ -108,6 +109,8 @@ class GameSceneThree extends Phaser.Scene {
     this.physics.add.collider(this.seedGroup, this.penelope, function (seedCollide) {
       seedCollide.destroy()
       this.physics.pause()
+      this.sound.stopAll()
+      this.score = 0
       this.scene.start('gameOverScene')
       //this.backgroundMusic.stop()
     }.bind(this))
@@ -121,27 +124,30 @@ class GameSceneThree extends Phaser.Scene {
 
     this.attackHitBox = this.add.rectangle(penelopeX, penelopeY, 30, 30, 0xffffff, 0.5)
     this.physics.add.existing(this.attackHitBox)
+    this.attackHitBox.body.setOffset(-50, 40)
     
 
     // collisions between acid drops and penelope
     this.physics.add.collider(this.seedGroup, this.attackHitBox, function (seedCollide) {
       seedCollide.destroy()
+      this.score = this.score + 1
       this.createSeed()
     }.bind(this))                                   
 
     
   }
-  // slams semi truck on ferral avocado seed
+  // slams car on ferral avocado seed when facing right
   penelopeAttackRight() {
     this.attackHitBox.body.velocity.x = 200
     this.penelope.play('penelope_attack_right', true)
   }
-  penelopeAttackLeft() {
-    this.attackHitBox.body.velocity.x = -200
+
+  penelopeOffset() {
+    this.penelope.body.setOffset(200, 650)
   }
 
+  // makes avocado seed track penelope
   seedFollows () {
-
     this.seedGroup.children.each( (seed) => {
       console.log("RUNNING")
     const penelopeX = this.penelope.x
@@ -152,13 +158,16 @@ class GameSceneThree extends Phaser.Scene {
   }
 
   update(time, delta) {
+    // updates the seed to follow penelope
     this.seedFollows()
+    // if the left arrow key is pressed, penelope will move left
     if (this.cursors.left.isDown)
     {
       this.penelope.x = this.penelope.x - 5
       this.facingRight = false
       this.penelope.play('penelope_walking_left', true)
     }
+    // if the right arrow key is pressed, penelope will move right
     else if (this.cursors.right.isDown)
     {
       this.penelope.x = this.penelope.x + 5
@@ -166,57 +175,78 @@ class GameSceneThree extends Phaser.Scene {
       this.penelope.play('penelope_walking_right', true)
     }
     
-
+    // if the up arrow key is pressed, and penelope was last facing right, penelope will walk up with the walking right animation
     if (this.cursors.up.isDown && this.facingRight === true)
     {
       this.penelope.y = this.penelope.y - 5
       this.penelope.play('penelope_walking_right', true)
     }
+    // if the up arrow key is pressed, and penelope was last facing left, penelope will walk up with the left walking animation playing
     else if (this.cursors.up.isDown && this.facingRight === false)
     {
         this.penelope.y = this.penelope.y - 5
         this.penelope.play('penelope_walking_left', true)
     }
+    // if the down arrow key is pressed, and penelope was last facing left, penelope will walk down with the left walking animation playing
     else if (this.cursors.down.isDown && this.facingRight === false) {
       this.penelope.y = this.penelope.y + 5
       this.penelope.play('penelope_walking_left', true)
     }
+    // if the down arrow key is pressed, and penelope was last facing right, penelope will walk down with the right walking animation playing
     else if (this.cursors.down.isDown && this.facingRight === true) {
       this.penelope.y = this.penelope.y + 5
       this.penelope.play('penelope_walking_right', true)
     }
-    if (this.cursors.space.isDown && this.facingRight === true) {
-      this.penelopeAttackRight()
-    } 
+    // if the space bar is up, it sets the attack hitbox back to its non attacking place
     else if (this.cursors.space.isUp) {
       this.attackHitBox.x = this.penelope.x
       this.attackHitBox.y = this.penelope.y
       this.attackHitBox.body.velocity.x = 0
-      this.penelope.body.setOffset(200, 650)
+      this.penelope.body.setOffset(200, 650 )
     }
-    if (this.cursors.space.isDown && this.facingRight === false) {
-      this.penelopeAttackLeft()
+    // if the space bar is pressed and penelope was last facing left, penelope will attack with the left facing attack animation
+    if ((this.cursors.space.isDown && this.facingRight === false) && (this.cursors.right.isUp && this.cursors.left.isUp)) {
+      this.attackHitBox.body.velocity.x = -200
       this.penelope.body.setOffset(670, 650)
       this.penelope.play('penelope_attack_left', true)
-      this.penelope.on('animationcomplete', () => {
-        this.penelope.body.setOffset(200, 650)
-      })
     }
-    if (this.cursors.space.isDown && this.cursors.left.isDown) {
-      this.penelope.play('penelope_attack_left', false)
-    }
-    else if (this.cursors.space.isDown && this.cursors.right.isDown) {
-      this.penelope.play('penelope_attack_right', false)
+    else if ((this.cursors.space.isDown && this.facingRight === true) && (this.cursors.right.isUp && this.cursors.left.isUp)) {
+      this.penelopeAttackRight()
       this.penelope.body.setOffset(200, 650)
+    }
+    else {
+      this.attackHitBox.body.velocity.x = 0
+      this.attackHitBox.x = this.penelope.x
+      this.attackHitBox.y = this.penelope.y
     }
     if ((this.cursors.right.isUp && this.cursors.left.isUp) && (this.facingRight === false && this.cursors.space.isUp)) {
       this.penelope.play('penelope_anim_standing_left', true)
-      this.penelope.body.setOffset(200, 650)
+      this.penelope.body.setOffset(670, 650)
+      this.attackHitBox.body.setOffset(50, 40)
     }
     if ((this.cursors.right.isUp && this.cursors.left.isUp) && (this.facingRight === true && this.cursors.space.isUp)) {
       this.penelope.play('penelope_anim_standing_right', true)
-      this.penelope.body.setOffset(200, 650)
+      this.penelopeOffset()
+      this.attackHitBox.body.setOffset(-50, 40)
     }
+
+
+
+    // end game
+    if (this.score > 30) {
+      this.physics.pause()
+      this.scene.start('transitionSceneTwo')
+      this.sound.stopAll()
+      this.score = 0
+    }
+
+
+
+
+
+
+
+    
   } 
 }
 
