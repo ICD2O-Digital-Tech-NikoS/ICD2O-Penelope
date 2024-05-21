@@ -24,6 +24,10 @@ class GameSceneTwo extends Phaser.Scene {
     this.acidDrop = null
     this.theBeard = null
     this.backgroundMusic = null
+    this.boing = null
+    this.boinging = false
+    this.runAudio = null
+    this.running = false
   }
   init(data) {
     // sets the background color
@@ -45,6 +49,8 @@ class GameSceneTwo extends Phaser.Scene {
     this.load.image('ground4', '././assets/ground4.png')
     this.load.image('beard2', '././assets/beard2.png')
     this.load.audio('backgroundMusic2', '././assets/marioBackgroundMusic.mp3')
+    this.load.audio('boing', '././assets/boing.mp3')
+    this.load.audio('runAudio', '././assets/runAudio.mp3')
   }
 
   // used to create game objects and add specifications
@@ -58,7 +64,9 @@ class GameSceneTwo extends Phaser.Scene {
     this.theBeard.setSize(200, 200)
     this.penelope = this.physics.add.sprite(1920 / 2, 1080 - 300, 'penelope2').setScale(0.1)
     // gives penelope a slight bounce, you can see when loads in
-   
+    this.boing = this.sound.add('boing', {volume: 3})
+    this.runAudio = this.sound.add('runAudio', {volume: 3})
+    this.runAudio.loop = true
     //  220x104 original size, 110x52 new size, the 'true' argument means "center it on the gameobject"
     this.penelope.setSize(300, 400, true)
     // changes the position of the hitbox for the sprite 
@@ -232,6 +240,16 @@ class GameSceneTwo extends Phaser.Scene {
     const keyRightObj = this.input.keyboard.addKey('RIGHT')
     const keyUpObj = this.input.keyboard.addKey('UP')
 
+    if ((keyLeftObj.isDown === true || keyRightObj.isDown === true) && this.running === false) {
+      this.runAudio.play()
+      this.running = true
+    }
+
+    if (keyLeftObj.isUp === true && keyRightObj.isUp === true) {
+      this.runAudio.stop();
+      this.running = false;
+    }
+
     // walking left plays the walking right animation in reverse
     if (keyLeftObj.isDown === true) {
       this.penelope.x = this.penelope.x - 6
@@ -249,9 +267,14 @@ class GameSceneTwo extends Phaser.Scene {
     }
 
     // sets jump height
-    if (keyUpObj.isDown && this.penelope.body.touching.down)
+    if ((keyUpObj.isDown && this.penelope.body.touching.down) && this.boinging === false)
     {
         this.penelope.setVelocityY(-710)
+        this.boing.play()
+        this.boinging = true
+    }
+    else if (keyUpObj.isUp === true && this.boinging === true) {
+      this.boinging = false
     }
   } 
 }
