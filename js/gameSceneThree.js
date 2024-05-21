@@ -53,6 +53,8 @@ class GameSceneThree extends Phaser.Scene {
     this.load.image('seed', '././assets/seed.png')
     this.load.audio('backgroundMusic', '././assets/backgroundMusicSceneThree.mp3')
     this.load.audio('slam', '././assets/slam.mp3')
+    this.load.image('slamEdgeLeft', '././assets/ground1.png')
+    this.load.image('slamEdgeRight', '././assets/ground2.png')
   }
 
   // used to create game objects and add specifications
@@ -72,6 +74,34 @@ class GameSceneThree extends Phaser.Scene {
     // changes the position of the hitbox for the sprite 
     this.penelope.body.setOffset(200, 650)
     this.penelope.setCollideWorldBounds(true)
+
+    //  The platforms group allows me to create platforms
+    this.platforms = this.physics.add.group()
+
+    const wallOneX = this.penelope.x - this.penelope.width * 1
+    const wallOneY = this.penelope.y
+    const wallTwoX = this.penelope.x + this.penelope.width * 1
+    const wallTwoY = this.penelope.y
+
+    
+    this.slamEdgeLeft = this.platforms.create(wallOneX, wallOneY, 'slamEdgeLeft').setScale(1).setAlpha(1).refreshBody()
+    this.slamEdgeLeft.setSize(10, 70, true)
+    this.slamEdgeLeft.setImmovable(true)
+
+    // creates more platforms
+    this.slamEdgeRight = this.platforms.create(wallTwoX, wallTwoY, 'slamEdgeRight').setScale(1).setAlpha(1).refreshBody()
+    this.slamEdgeRight.setSize(10, 70, true)
+    this.slamEdgeRight.setImmovable(true)
+
+
+
+
+
+
+
+
+
+    
 
     this.seedGroup = this.add.group()
     // since penelope is not collecting anything, the animation would remain the same, this animation is for penelope walking
@@ -127,7 +157,7 @@ class GameSceneThree extends Phaser.Scene {
     const penelopeX = this.penelope.x
     const penelopeY = this.penelope.y
 
-    this.attackHitBox = this.add.rectangle(penelopeX, penelopeY, 30, 30, 0xffffff, 0.5)
+    this.attackHitBox = this.add.rectangle(penelopeX, penelopeY, 20, 20, 0xffffff, 0.5)
     this.physics.add.existing(this.attackHitBox)
     this.attackHitBox.body.setOffset(-50, 40)
     
@@ -143,7 +173,7 @@ class GameSceneThree extends Phaser.Scene {
   }
   // slams car on ferral avocado seed when facing right
   penelopeAttackRight() {
-    this.attackHitBox.body.velocity.x = 200
+    this.attackHitBox.body.velocity.x = 700
     this.penelope.play('penelope_attack_right', true)
   }
 
@@ -166,15 +196,7 @@ class GameSceneThree extends Phaser.Scene {
     // updates the seed to follow penelope
     this.seedFollows()
 
-    const attackResetPointLeft = this.penelope.x + this.penelope.width * 2
-    const attackResetPointRight = this.penelope.x - this.penelope.width * 2
-
-    if (this.attackHitBox.x < attackResetPointLeft || this.attackHitBox.x > attackResetPointRight) {
-      this.attackHitBox.x = this.penelope.x
-      this.attackHitBox.y = this.penelope.y
-    }
-
-
+    
 
 
     
