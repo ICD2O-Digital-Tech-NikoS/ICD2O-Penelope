@@ -111,7 +111,7 @@ class GameSceneThree extends Phaser.Scene {
       this.physics.pause()
       this.sound.stopAll()
       this.score = 0
-      this.scene.start('gameOverScene')
+      this.scene.start('menuScene')
       //this.backgroundMusic.stop()
     }.bind(this))
     this.createSeed()
