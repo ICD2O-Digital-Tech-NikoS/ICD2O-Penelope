@@ -34,6 +34,8 @@ class GameSceneThree extends Phaser.Scene {
     this.attackHitBox = null
     this.facingRight = true
     this.score = null
+    this.slam = null
+    this.slamming = false
   }
   init(data) {
     // sets the background color
@@ -50,6 +52,7 @@ class GameSceneThree extends Phaser.Scene {
     })
     this.load.image('seed', '././assets/seed.png')
     this.load.audio('backgroundMusic', '././assets/backgroundMusicSceneThree.mp3')
+    this.load.audio('slam', '././assets/slam.mp3')
   }
 
   // used to create game objects and add specifications
@@ -57,6 +60,7 @@ class GameSceneThree extends Phaser.Scene {
     this.backgroundMusic = this.sound.add('backgroundMusic', {volume: 2})
     this.backgroundMusic.play()
     this.backgroundMusic.loop = true
+    this.slam = this.sound.add('slam')
     this.gameSceneThreebackground = this.add.image(0, 0, 'gameSceneThreeBackground')
     this.gameSceneThreebackground.x = 1920 / 2
     this.gameSceneThreebackground.y = 1080 / 2
@@ -161,6 +165,29 @@ class GameSceneThree extends Phaser.Scene {
   update(time, delta) {
     // updates the seed to follow penelope
     this.seedFollows()
+
+    const attackResetPointLeft = this.penelope.x + this.penelope.width * 2
+    const attackResetPointRight = this.penelope.x - this.penelope.width * 2
+
+    if (this.attackHitBox.x < attackResetPointLeft || this.attackHitBox.x > attackResetPointRight) {
+      this.attackHitBox.x = this.penelope.x
+      this.attackHitBox.y = this.penelope.y
+    }
+
+
+
+
+    
+
+    if (this.cursors.space.isDown && this.slamming === false) {
+      this.slam.play()
+      this.slamming = true
+    }
+    if (this.cursors.space.isUp && this.slamming === true) {
+      this.slam.stop()
+      this.slamming = false
+    }
+    
     // if the left arrow key is pressed, penelope will move left
     if (this.cursors.left.isDown)
     {
