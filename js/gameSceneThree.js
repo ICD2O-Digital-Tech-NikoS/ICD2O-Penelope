@@ -49,13 +49,14 @@ class GameSceneThree extends Phaser.Scene {
       frameHeight: 1000
     })
     this.load.image('seed', '././assets/seed.png')
-    this.load.audio('backgroundMusic', '././assets/marioBackgroundMusic.mp3')
+    this.load.audio('backgroundMusic', '././assets/backgroundMusicSceneThree.mp3')
   }
 
   // used to create game objects and add specifications
   create(data) {
-    //this.backgroundMusic = this.sound.add('backgroundMusic')
-    //this.backgroundMusic.play()
+    this.backgroundMusic = this.sound.add('backgroundMusic', {volume: 2})
+    this.backgroundMusic.play()
+    this.backgroundMusic.loop = true
     this.gameSceneThreebackground = this.add.image(0, 0, 'gameSceneThreeBackground')
     this.gameSceneThreebackground.x = 1920 / 2
     this.gameSceneThreebackground.y = 1080 / 2
@@ -95,12 +96,12 @@ class GameSceneThree extends Phaser.Scene {
     this.anims.create({
       key: "penelope_attack_right",
       frames: this.anims.generateFrameNumbers("penelope3", {start: 10, end: 18}),
-      frameRate: 15,
+      frameRate: 17,
     })
     this.anims.create({
       key: "penelope_attack_left",
       frames: this.anims.generateFrameNumbers("penelope3", {start: 21, end: 28}),
-      frameRate: 15,
+      frameRate: 17,
     })
     this.cursors = this.input.keyboard.createCursorKeys()
 
