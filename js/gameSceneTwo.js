@@ -99,15 +99,15 @@ class GameSceneTwo extends Phaser.Scene {
     //  Collide the player and platforms
     this.physics.add.collider(this.penelope, this.platforms);
     // creates platforms
-    this.ground1 = this.platforms.create(1920 - 1480, 1080 - 70, 'ground1').setScale(1).setAlpha(0).refreshBody()
+    this.ground1 = this.platforms.create(1920 - 1480, 1080 - 70, 'ground1').setScale(1).setAlpha(0.1).refreshBody()
     this.ground1.setSize(300, 10, true) 
 
     // creates more platforms
-    this.ground2 = this.platforms.create(1920 - 920, 1080 - 70, 'ground2').setScale(1).setAlpha(0).refreshBody()
+    this.ground2 = this.platforms.create(1920 - 920, 1080 - 70, 'ground2').setScale(1).setAlpha(0.1).refreshBody()
     this.ground2.setSize(270, 10, true) 
 
     // creates even more platforms
-    this.ground3 = this.platforms.create(1920 - 300, 1080 - 70, 'ground3').setScale(1).setAlpha(0).refreshBody()
+    this.ground3 = this.platforms.create(1920 - 300, 1080 - 70, 'ground3').setScale(1).setAlpha(0.1).refreshBody()
     this.ground3.setSize(350, 10, true) 
 
     this.airPlatformOne = this.platforms.create(1920 - 570, 1080 - 310, 'ground4').setScale(1).setAlpha(1).refreshBody()

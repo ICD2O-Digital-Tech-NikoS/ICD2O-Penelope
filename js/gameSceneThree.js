@@ -141,12 +141,11 @@ class GameSceneThree extends Phaser.Scene {
     this.physics.add.existing(this.attackHitBox)
     this.attackHitBox.body.setOffset(-50, 40)
 
-    this.toiletBowl = this.add.rectangle(0, 0, 200, 200, 0x1144ff, 0.5).setAlpha(1)
+    this.toiletBowl = this.add.rectangle(975, 600, 170, 200, 0xff5555, 0.5).setAlpha(0.)
     this.physics.add.existing(this.toiletBowl)
 
     // collisions between acid drops and penelope
-    this.physics.add.collider(this.penelope, this.toiletBowl, function (penelopeCollide) {
-      penelopeCollide.destroy()
+    this.physics.add.collider(this.penelope, this.toiletBowl, function () {
       this.score = 0
       this.physics.pause()
       this.sound.stopAll()
