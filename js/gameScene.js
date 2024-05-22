@@ -71,7 +71,8 @@ class GameScene extends Phaser.Scene {
     }) 
     this.beardCollect = this.sound.add('beardCollect')
     this.beardSizzle = this.sound.add('beardSizzle', {volume: 0.3})
-    this.backgroundMusic = this.sound.add('backgroundMusic', {volume: 5})
+    this.backgroundMusic = this.sound.add('backgroundMusic', {volume: 2})
+    this.backgroundMusic.play()
     // adds penelope
     this.penelope = this.physics.add.sprite(1920 / 2, 1080 - 180, 'penelope').setScale(0.3)
     //  220x104 original size, 110x52 new size, the 'true' argument means "center it on the gameobject"
