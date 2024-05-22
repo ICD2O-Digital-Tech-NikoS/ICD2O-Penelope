@@ -19,8 +19,8 @@ class GameSceneThree extends Phaser.Scene {
     const seedX = randomSpawn.x;
     const seedY = randomSpawn.y;
   
-    const seed = this.physics.add.sprite(seedX, seedY, 'seed').setScale(1)
-    seed.setSize(70, 120)
+    const seed = this.physics.add.sprite(seedX, seedY, 'seed').setScale(0.33)
+    seed.setSize(250, 570)
     this.seedGroup.add(seed)
   }
 
