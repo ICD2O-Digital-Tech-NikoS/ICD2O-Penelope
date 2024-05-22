@@ -173,7 +173,7 @@ class GameScene extends Phaser.Scene {
     
     // if user is pressing left key down, make penelope move left, play run sound, and depending on how many beards penelope collected, play a different animation
     if (keyLeftObj.isDown === true) {
-      this.penelope.x = this.penelope.x - 20
+      this.penelope.x = this.penelope.x - 28
     }
     if (this.score >= 4) {
       this.penelope.playReverse('penelope_anim3', true)
@@ -188,7 +188,7 @@ class GameScene extends Phaser.Scene {
 
     // if user is pressing right key down, make penelope move right, play run sound, and depending on how many beards penelope collected, play a different animation
     if (keyRightObj.isDown === true) {
-      this.penelope.x = this.penelope.x + 20
+      this.penelope.x = this.penelope.x + 28
       if (this.score >= 4) {
         this.penelope.play('penelope_anim3', true)
       }

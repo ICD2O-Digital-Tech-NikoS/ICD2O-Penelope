@@ -36,8 +36,7 @@ class GameSceneThree extends Phaser.Scene {
     this.score = null
     this.slam = null
     this.slamming = false
-    this.slamEdgeLeft = null
-    this.slamEdgeRight = null
+    this.toiletBowl = null
   }
   init(data) {
     // sets the background color
@@ -66,7 +65,7 @@ class GameSceneThree extends Phaser.Scene {
     this.gameSceneThreebackground = this.add.image(0, 0, 'gameSceneThreeBackground')
     this.gameSceneThreebackground.x = 1920 / 2
     this.gameSceneThreebackground.y = 1080 / 2
-    this.penelope = this.physics.add.sprite(1920 / 2, 1080 - 300, 'penelope3').setScale(0.2)
+    this.penelope = this.physics.add.sprite(1920 / 2 + 70, 1080 - 200, 'penelope3').setScale(0.2)
     // gives penelope a slight bounce, you can see when loads in
 
     //  220x104 original size, 110x52 new size, the 'true' argument means "center it on the gameobject"
@@ -138,9 +137,21 @@ class GameSceneThree extends Phaser.Scene {
     this.createSeed()
     this.createSeed()
 
-    this.attackHitBox = this.add.rectangle(penelopeX, penelopeY, 20, 20, 0xffffff, 0.5)
+    this.attackHitBox = this.add.rectangle(penelopeX, penelopeY, 20, 20, 0xffffff, 0.5).setAlpha(0)
     this.physics.add.existing(this.attackHitBox)
     this.attackHitBox.body.setOffset(-50, 40)
+
+    this.toiletBowl = this.add.rectangle(0, 0, 200, 200, 0x1144ff, 0.5).setAlpha(1)
+    this.physics.add.existing(this.toiletBowl)
+
+    // collisions between acid drops and penelope
+    this.physics.add.collider(this.penelope, this.toiletBowl, function (penelopeCollide) {
+      penelopeCollide.destroy()
+      this.score = 0
+      this.physics.pause()
+      this.sound.stopAll()
+      this.scene.start('menuScene')
+    }.bind(this)) 
     
 
     // collisions between acid drops and penelope
