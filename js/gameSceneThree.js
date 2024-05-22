@@ -36,6 +36,8 @@ class GameSceneThree extends Phaser.Scene {
     this.score = null
     this.slam = null
     this.slamming = false
+    this.slamEdgeLeft = null
+    this.slamEdgeRight = null
   }
   init(data) {
     // sets the background color
@@ -53,8 +55,6 @@ class GameSceneThree extends Phaser.Scene {
     this.load.image('seed', '././assets/seed.png')
     this.load.audio('backgroundMusic', '././assets/backgroundMusicSceneThree.mp3')
     this.load.audio('slam', '././assets/slam.mp3')
-    this.load.image('slamEdgeLeft', '././assets/ground1.png')
-    this.load.image('slamEdgeRight', '././assets/ground2.png')
   }
 
   // used to create game objects and add specifications
@@ -75,26 +75,10 @@ class GameSceneThree extends Phaser.Scene {
     this.penelope.body.setOffset(200, 650)
     this.penelope.setCollideWorldBounds(true)
 
-    //  The platforms group allows me to create platforms
-    this.platforms = this.physics.add.group()
-
-    const wallOneX = this.penelope.x - this.penelope.width * 1
-    const wallOneY = this.penelope.y
-    const wallTwoX = this.penelope.x + this.penelope.width * 1
-    const wallTwoY = this.penelope.y
+    const penelopeX = this.penelope.x
+    const penelopeY = this.penelope.y
 
     
-    this.slamEdgeLeft = this.platforms.create(wallOneX, wallOneY, 'slamEdgeLeft').setScale(1).setAlpha(1).refreshBody()
-    this.slamEdgeLeft.setSize(10, 70, true)
-    this.slamEdgeLeft.setImmovable(true)
-
-    // creates more platforms
-    this.slamEdgeRight = this.platforms.create(wallTwoX, wallTwoY, 'slamEdgeRight').setScale(1).setAlpha(1).refreshBody()
-    this.slamEdgeRight.setSize(10, 70, true)
-    this.slamEdgeRight.setImmovable(true)
-
-
-
 
 
 
@@ -154,9 +138,6 @@ class GameSceneThree extends Phaser.Scene {
     this.createSeed()
     this.createSeed()
 
-    const penelopeX = this.penelope.x
-    const penelopeY = this.penelope.y
-
     this.attackHitBox = this.add.rectangle(penelopeX, penelopeY, 20, 20, 0xffffff, 0.5)
     this.physics.add.existing(this.attackHitBox)
     this.attackHitBox.body.setOffset(-50, 40)
@@ -171,9 +152,9 @@ class GameSceneThree extends Phaser.Scene {
 
     
   }
-  // slams car on ferral avocado seed when facing right
+  // slams car on ferral avocado seed when facing right, had to be done this way because if the attack simply spawned a box on top of the enemy, it gave issues with collisions, it has to be colliding with the enemy in a way that it goes from outside of the enemy hitbox to the inside, otherwise sometimes it registers it as already having happened or not at all.
   penelopeAttackRight() {
-    this.attackHitBox.body.velocity.x = 700
+    this.attackHitBox.body.velocity.x = 300
     this.penelope.play('penelope_attack_right', true)
   }
 
@@ -192,14 +173,20 @@ class GameSceneThree extends Phaser.Scene {
     })
   }
 
+  // This part I did need help from AI with but I did my best to understand it. Calculates the distance between two points.  first calculates the horizontal distance by subtracting the x-coordinate of the first point from the x-coordinate of the second point giving us A. Ex: in a 20px by 20px screen, the first x coordinate is 3 and the second x coordinate is 15, so 15 - 3 is 12, so the distance on the x axis is 12. then it calculates the verticle distance by doing the same thing, now we have B. Then it uses a sort of pythagorean theorem type equation to calculate the final distance, which we could say is C, or the hypotenouse. It does A squared plus B squared, and then gets the squareroot of that to get C, which is the distance between the two points including x distaance and y distance.
+  distanceBetweenPoints(point1, point2) {
+    return Math.sqrt(Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2));
+  }
+  
+
   update(time, delta) {
     // updates the seed to follow penelope
     this.seedFollows()
-
     
-
-
-    
+    // Check the distance and set attackHitBox.x accordingly
+    if(this.distanceBetweenPoints(this.attackHitBox, this.penelope) > 180) {
+      this.attackHitBox.x = this.penelope.x;
+    }
 
     if (this.cursors.space.isDown && this.slamming === false) {
       this.slam.play()
@@ -256,7 +243,7 @@ class GameSceneThree extends Phaser.Scene {
     }
     // if the space bar is pressed and penelope was last facing left, penelope will attack with the left facing attack animation
     if ((this.cursors.space.isDown && this.facingRight === false) && (this.cursors.right.isUp && this.cursors.left.isUp)) {
-      this.attackHitBox.body.velocity.x = -200
+      this.attackHitBox.body.velocity.x = -300
       this.penelope.body.setOffset(665, 650)
       this.penelope.play('penelope_attack_left', true)
     }
@@ -290,13 +277,6 @@ class GameSceneThree extends Phaser.Scene {
       this.score = 0
     }
 
-
-
-
-
-
-
-    
   } 
 }
 
