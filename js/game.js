@@ -14,7 +14,7 @@ import TutorialScene from "./tutorialScene.js"
 import GameOverScene from "./gameOverScene.js"
 import TransitionSceneOne from "./transitionSceneOne.js"
 import GameSceneTwo from "./gameSceneTwo.js"
-import TransitionSceneTwo from "./transitionSceneTwo.js"
+import YouWinScene from "./youWinScene.js"
 import GameSceneThree from "./gameSceneThree.js"
 // create the new scenes as a variable
 const splashScene = new SplashScene()
@@ -26,7 +26,7 @@ const tutorialScene = new TutorialScene()
 const transitionSceneOne = new TransitionSceneOne()
 const gameOverScene = new GameOverScene()
 const gameSceneTwo = new GameSceneTwo()
-const transitionSceneTwo = new TransitionSceneTwo()
+const youWinScene = new YouWinScene()
 const gameSceneThree = new GameSceneThree()
 // game configuration settings, dictionary of basic parameters for the game
 const config = {
@@ -63,7 +63,7 @@ game.scene.add('tutorialScene', tutorialScene)
 game.scene.add('gameOverScene', gameOverScene)
 game.scene.add('transitionSceneOne', transitionSceneOne)
 game.scene.add('gameSceneTwo', gameSceneTwo)
-game.scene.add('transitionSceneTwo', transitionSceneTwo)
+game.scene.add('youWinScene', youWinScene)
 game.scene.add('gameSceneThree', gameSceneThree)
 // start scene
-game.scene.start('splashScene')
+game.scene.start('youWinScene')
