@@ -129,7 +129,7 @@ class GameSceneThree extends Phaser.Scene {
       this.physics.pause()
       this.sound.stopAll()
       this.score = 0
-      this.scene.start('menuScene')
+      this.scene.start('youloseScene')
       //this.backgroundMusic.stop()
     }.bind(this))
     this.createSeed()
@@ -149,7 +149,7 @@ class GameSceneThree extends Phaser.Scene {
       this.score = 0
       this.physics.pause()
       this.sound.stopAll()
-      this.scene.start('menuScene')
+      this.scene.start('youloseScene')
     }.bind(this)) 
     
 
@@ -282,7 +282,7 @@ class GameSceneThree extends Phaser.Scene {
     // end game
     if (this.score > 30) {
       this.physics.pause()
-      this.scene.start('transitionSceneTwo')
+      this.scene.start('youWinScene')
       this.sound.stopAll()
       this.score = 0
     }
