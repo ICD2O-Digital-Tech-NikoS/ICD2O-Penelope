@@ -184,7 +184,7 @@ class GameSceneThree extends Phaser.Scene {
     this.seedFollows()
     
     // Check the distance and set attackHitBox.x accordingly
-    if(this.distanceBetweenPoints(this.attackHitBox, this.penelope) > 180) {
+    if(this.distanceBetweenPoints(this.attackHitBox, this.penelope) > 150) {
       this.attackHitBox.x = this.penelope.x;
     }
 
