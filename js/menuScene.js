@@ -9,6 +9,7 @@ class MenuScene extends Phaser.Scene {
   constructor() {
     super({key: "menuScene"})
     this.startButton = null
+    this.instructionsButton = null
     this.menuSceneBackgroundImage = null
     this.backgroundMusic = null
   }
@@ -21,6 +22,7 @@ class MenuScene extends Phaser.Scene {
     console.log("Menu Scene")
     // loads video and allows it to be used and customized for the scene (using create data)
     this.load.image('startButton', '././assets/startButton.png')
+    this.load.image('instructionsButton', '././assets/instructionsButton.png')
     this.load.image('menuSceneBackground', '././assets/menuSceneBackgroundImage.png')
     this.load.audio('backgroundMusic', '././assets/backgroundMusic.mp3')
   }
@@ -32,20 +34,29 @@ class MenuScene extends Phaser.Scene {
     // coordinates for image
     this.menuSceneBackgroundImage.x = 1920 / 2
     this.menuSceneBackgroundImage.y = 1080 / 2
-    this.backgroundMusic = this.sound.add('backgroundMusic', {volume: 0.12})
+    this.backgroundMusic = this.sound.add('backgroundMusic', {volume: 0.12, loop: true})
     this.startButton = this.add.sprite(1920 / 2, (1300 / 2) + 100, 'startButton').setScale(0.2)
     // gives button the property of interactive and makes the cursor turn into a hand when hovering over the button
     this.startButton.setInteractive({ useHandCursor : true })
     //when the cursor is on and, pointer down meaning click essentially happens, it runs the code or function
-    this.startButton.on('pointerdown', () => this.clickButton())
+    this.startButton.on('pointerdown', () => this.clickStartButton())
+    
+    this.instructionsButton = this.add.sprite(1920 / 2, (1500 / 2) + 100, 'instructionsButton').setScale(0.35)
+    // gives button the property of interactive and makes the cursor turn into a hand when hovering over the button
+    this.instructionsButton.setInteractive({ useHandCursor : true })
+    //when the cursor is on and, pointer down meaning click essentially happens, it runs the code or function
+    this.instructionsButton.on('pointerdown', () => this.clickInstructionsButton())
   }
 
   update(time, delta) {
   }
 
   // starts tutorialScene when clicked
-  clickButton () {
+  clickInstructionsButton () {
     this.scene.switch('tutorialScene')
+  }
+  clickStartButton () {
+    this.scene.switch('gameScene')
     this.backgroundMusic.play()
   }
 }
