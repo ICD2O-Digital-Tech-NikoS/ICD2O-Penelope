@@ -1,8 +1,8 @@
 // Created by: Niko
 // Created on: may 2024
-// This is the Tutorial Scene
+// This is the Transition Scene One
 
-// class for the game scene
+// class for the transition scene one
 class TransitionSceneOne extends Phaser.Scene {
 
   //method that constructs keywords

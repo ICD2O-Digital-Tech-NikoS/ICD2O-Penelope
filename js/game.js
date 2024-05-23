@@ -1,6 +1,6 @@
 // Created by: Niko
 // Created on: may 2024
-//this is the Phaser3 game configuration
+// this is the Phaser3 game configuration
 
 // global phaser 
 

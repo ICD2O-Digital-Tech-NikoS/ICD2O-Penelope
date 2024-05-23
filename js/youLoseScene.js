@@ -1,8 +1,8 @@
 // Created by: Niko
 // Created on: may 2024
-// This is the Tutorial Scene
+// This is the You Lose Scene
 
-// class for the game scene
+// class for the you lose scene
 class YouloseScene extends Phaser.Scene {
 
   //method that constructs keywords

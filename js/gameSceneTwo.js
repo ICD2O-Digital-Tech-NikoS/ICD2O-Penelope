@@ -7,15 +7,21 @@
 class GameSceneTwo extends Phaser.Scene {
   // create an acid drop
   createAcidDrop() {
+    // creates a random number for velocity of the acid drop, the rate it falls at
     const acidDropVelocity = Math.floor(Math.random() * 141) + 80
+    // creates a random number for the x position of the acid drop that it falls at from the sky
     const acidDropXLocation = Math.floor(Math.random() * 1920) + 1
+    // adds the acid drop
     const acidDrop = this.physics.add.sprite(acidDropXLocation, -100, 'acidDrop').setAlpha(0.3).setScale(0.13)
+    // sets its size
     acidDrop.setSize(25, 25)
+    // says that the velocity of the acid drop is equal to the randomly generated number
     acidDrop.body.velocity.y = acidDropVelocity
+    // adds the acid drop to the acid drop group
     this.acidDropGroup.add(acidDrop)
   }
   
-  //method that constructs keywords
+  //method that constructs keywords, names we can use later
   constructor() {
     super({key: "gameSceneTwo"})
     this.gameSceneBackground = null
@@ -55,19 +61,24 @@ class GameSceneTwo extends Phaser.Scene {
 
   // used to create game objects and add specifications
   create(data) {
+    // creates background music and plays it
     this.backgroundMusic = this.sound.add('backgroundMusic2')
     this.backgroundMusic.play()
+    // background for scene two
     this.gameScenebackground = this.add.image(0, 0, 'gameSceneTwoBackground')
     this.gameScenebackground.x = 1920 / 2
     this.gameScenebackground.y = 1080 / 2
+    // adds the beard
     this.theBeard = this.physics.add.sprite(1920 / 2, 1080 - 800, 'beard2').setScale(0.75)
     this.theBeard.setSize(200, 200)
+    // adds penelope
     this.penelope = this.physics.add.sprite(1920 / 2, 1080 - 300, 'penelope2').setScale(0.1)
-    // gives penelope a slight bounce, you can see when loads in
+    // gives penelope a bounce sound
     this.boing = this.sound.add('boing', {volume: 3})
     this.runAudio = this.sound.add('runAudio', {volume: 3})
     this.runAudio.loop = true
-    //  220x104 original size, 110x52 new size, the 'true' argument means "center it on the gameobject"
+    
+    // sets size, the 'true' argument means "center it on the gameobject"
     this.penelope.setSize(300, 400, true)
     // changes the position of the hitbox for the sprite 
     this.penelope.body.setOffset(380, 570)
@@ -82,7 +93,7 @@ class GameSceneTwo extends Phaser.Scene {
       repeat: -1
     })
 
-    // frame for  standing
+    // frame for standing
     this.anims.create({
       key: "penelope_anim_standing",
       frames: this.anims.generateFrameNumbers("penelope2", 0)
@@ -94,7 +105,7 @@ class GameSceneTwo extends Phaser.Scene {
 
     //  The platforms group allows me to create platforms
     this.platforms = this.physics.add.staticGroup()
-    //  Player physics properties and bounds so that player canno go off screen or out of bounds
+    //  Player physics properties and bounds so that player cannot go off screen or out of bounds
     this.penelope.setCollideWorldBounds(true)
     //  Collide the player and platforms
     this.physics.add.collider(this.penelope, this.platforms);
@@ -163,11 +174,7 @@ class GameSceneTwo extends Phaser.Scene {
     this.createAcidDrop()
     this.createAcidDrop()
     this.createAcidDrop()
-    this.createAcidDrop()
-    this.createAcidDrop()
-    this.createAcidDrop()
-    this.createAcidDrop()
-    this.createAcidDrop()
+   
     
     // collisions between acid drops and penelope
     this.physics.add.collider(this.acidDropGroup, this.penelope, function (acidDropCollide) {
@@ -204,6 +211,7 @@ class GameSceneTwo extends Phaser.Scene {
       this.physics.pause()
       this.scene.start('youloseScene')
       this.sound.stopAll()
+      this.running = true
     }.bind(this))
 
     // collision between acid drops and acid puddle
@@ -212,7 +220,7 @@ class GameSceneTwo extends Phaser.Scene {
       
       this.createAcidDrop()
     }.bind(this))
-
+    // collision between the beard and penelope
     this.physics.add.collider(this.theBeard, this.penelope, function(beardCollide) {
       beardCollide.destroy()
       this.sound.stopAll()
@@ -228,12 +236,13 @@ class GameSceneTwo extends Phaser.Scene {
     const keyLeftObj = this.input.keyboard.addKey('LEFT') 
     const keyRightObj = this.input.keyboard.addKey('RIGHT')
     const keyUpObj = this.input.keyboard.addKey('UP')
-
+    
+    // if either key is pressed and the running sound is not playing, play the running sound
     if ((keyLeftObj.isDown === true || keyRightObj.isDown === true) && this.running === false) {
       this.runAudio.play()
       this.running = true
     }
-
+    // if both keys are up, stop the running sound
     if (keyLeftObj.isUp === true && keyRightObj.isUp === true) {
       this.runAudio.stop();
       this.running = false;
@@ -255,7 +264,7 @@ class GameSceneTwo extends Phaser.Scene {
       this.penelope.play('penelope_anim_standing', true)
     }
 
-    // sets jump height
+    // sets jump height, makes player jump when spacebar pressed space and plays sound
     if ((keyUpObj.isDown && this.penelope.body.touching.down) && this.boinging === false)
     {
         this.penelope.setVelocityY(-710)

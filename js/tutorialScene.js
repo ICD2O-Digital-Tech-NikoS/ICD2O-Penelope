@@ -2,7 +2,7 @@
 // Created on: may 2024
 // This is the Tutorial Scene
 
-// class for the game scene
+// class for the tutorial scene
 class TutorialScene extends Phaser.Scene {
 
   //method that constructs keywords

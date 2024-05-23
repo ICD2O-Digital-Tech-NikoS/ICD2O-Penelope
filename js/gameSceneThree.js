@@ -5,7 +5,7 @@
 
 // class for the game scene three
 class GameSceneThree extends Phaser.Scene {
-  // create an acid drop
+  // creates an avocado seed
   createSeed() {
     // Define the array of coordinate pairs
     const spawnOne = { x: 1920 - 1700, y: 1080 - 200 };
@@ -13,14 +13,18 @@ class GameSceneThree extends Phaser.Scene {
     const spawnThree = { x: 1920 - 1700, y: 1080 - 800 };
     const spawnFour = { x: 1920 - 200, y: 1080 - 200 };
 
+    // creates an array including all of the different possible spawn locations
     const spawnArr = [spawnOne, spawnTwo, spawnThree, spawnFour];
+    // gets the length of the array, the number of items in it, and then gets a random number between 1 and the length of the array, and then sets the spawn location associated with that number to the random spawn constant
     const randomSpawn = spawnArr[Math.floor(Math.random() * spawnArr.length)]
 
+    // the coordinate of the randomly picked spawn location is used as the spawn location for the avocado seed
     const seedX = randomSpawn.x;
     const seedY = randomSpawn.y;
   
     const seed = this.physics.add.sprite(seedX, seedY, 'seed').setScale(0.33)
     seed.setSize(250, 570)
+    // adds seeds to seed group
     this.seedGroup.add(seed)
   }
 
@@ -30,7 +34,7 @@ class GameSceneThree extends Phaser.Scene {
     this.gameSceneThreeBackground = null
     this.penelope = null
     this.seed = null
-    this.backgroundMusic = null
+    this.backgroundMusicThree = null
     this.attackHitBox = null
     this.facingRight = true
     this.score = null
@@ -52,23 +56,23 @@ class GameSceneThree extends Phaser.Scene {
       frameHeight: 1000
     })
     this.load.image('seed', '././assets/seed.png')
-    this.load.audio('backgroundMusic', '././assets/backgroundMusicSceneThree.mp3')
+    this.load.audio('backgroundMusicThree', '././assets/backgroundMusicSceneThree.mp3')
     this.load.audio('slam', '././assets/slam.mp3')
   }
 
   // used to create game objects and add specifications
   create(data) {
-    this.backgroundMusic = this.sound.add('backgroundMusic', {volume: 2})
-    this.backgroundMusic.play()
-    this.backgroundMusic.loop = true
+    this.backgroundMusicThree = this.sound.add('backgroundMusicThree', {volume: 2})
+    this.backgroundMusicThree.play()
+    this.backgroundMusicThree.loop = true
     this.slam = this.sound.add('slam')
     this.gameSceneThreebackground = this.add.image(0, 0, 'gameSceneThreeBackground')
     this.gameSceneThreebackground.x = 1920 / 2
     this.gameSceneThreebackground.y = 1080 / 2
     this.penelope = this.physics.add.sprite(1920 / 2 + 70, 1080 - 200, 'penelope3').setScale(0.2)
-    // gives penelope a slight bounce, you can see when loads in
+    
 
-    //  220x104 original size, 110x52 new size, the 'true' argument means "center it on the gameobject"
+    // new size, the 'true' argument means "center it on the gameobject"
     this.penelope.setSize(150, 200, true)
     // changes the position of the hitbox for the sprite 
     this.penelope.body.setOffset(200, 650)
@@ -77,17 +81,9 @@ class GameSceneThree extends Phaser.Scene {
     const penelopeX = this.penelope.x
     const penelopeY = this.penelope.y
 
-    
-
-
-
-
-
-
-    
-
+    // creates the seed group
     this.seedGroup = this.add.group()
-    // since penelope is not collecting anything, the animation would remain the same, this animation is for penelope walking
+    // animations for penelope walking different directions
     this.anims.create({
       key: "penelope_walking_right",
       frames: this.anims.generateFrameNumbers("penelope3", {start: 5, end: 9}),
@@ -100,16 +96,17 @@ class GameSceneThree extends Phaser.Scene {
       frameRate: 20,
       repeat: -1
     })
-    // frame for  standing
+    // frame for standing facing right
     this.anims.create({
       key: "penelope_anim_standing_right",
       frames: this.anims.generateFrameNumbers("penelope3", {start: 19, end: 19})
     })
-    // frame for  standing
+    // frame for standing facing left
     this.anims.create({
       key: "penelope_anim_standing_left",
       frames: this.anims.generateFrameNumbers("penelope3", {start: 20, end: 20})
     })
+    // animations for penelope attacking when facing left or right
     this.anims.create({
       key: "penelope_attack_right",
       frames: this.anims.generateFrameNumbers("penelope3", {start: 10, end: 18}),
@@ -120,31 +117,36 @@ class GameSceneThree extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers("penelope3", {start: 21, end: 28}),
       frameRate: 17,
     })
+    // creates keyboard inputs
     this.cursors = this.input.keyboard.createCursorKeys()
 
     
-    // collisions between acid drops and penelope
+    // collisions between seeds and penelope
     this.physics.add.collider(this.seedGroup, this.penelope, function (seedCollide) {
       seedCollide.destroy()
       this.physics.pause()
       this.sound.stopAll()
       this.score = 0
       this.scene.start('youloseScene')
-      //this.backgroundMusic.stop()
     }.bind(this))
+
+    // spawns 4 seeds
     this.createSeed()
     this.createSeed()
     this.createSeed()
     this.createSeed()
 
+
+    // attack hit box for when the player attacks 
     this.attackHitBox = this.add.rectangle(penelopeX, penelopeY, 20, 20, 0xffffff, 0.5).setAlpha(0)
     this.physics.add.existing(this.attackHitBox)
     this.attackHitBox.body.setOffset(-50, 40)
 
+    // toilet bowl hole hit box for if the player falls in the toilet bowl hole
     this.toiletBowl = this.add.rectangle(975, 600, 170, 200, 0xff5555, 0.5).setAlpha(0.)
     this.physics.add.existing(this.toiletBowl)
 
-    // collisions between acid drops and penelope
+    // collisions between toilet bowl hole and penelope
     this.physics.add.collider(this.penelope, this.toiletBowl, function () {
       this.score = 0
       this.physics.pause()
@@ -153,7 +155,7 @@ class GameSceneThree extends Phaser.Scene {
     }.bind(this)) 
     
 
-    // collisions between acid drops and penelope
+    // collisions between seeds and the attack hit box
     this.physics.add.collider(this.seedGroup, this.attackHitBox, function (seedCollide) {
       seedCollide.destroy()
       this.score = this.score + 1
@@ -162,21 +164,23 @@ class GameSceneThree extends Phaser.Scene {
 
     
   }
-  // slams car on ferral avocado seed when facing right, had to be done this way because if the attack simply spawned a box on top of the enemy, it gave issues with collisions, it has to be colliding with the enemy in a way that it goes from outside of the enemy hitbox to the inside, otherwise sometimes it registers it as already having happened or not at all.
+  // slams car on feral avocado seed when facing right, had to be done this way because if the attack simply spawned a box on top of the enemy, it gave issues with collisions, it has to be colliding with the enemy in a way that it goes from outside of the enemy hitbox to the inside, otherwise sometimes it registers it as already having happened or not at all. so now it moves from the players location and then collides with the enemy instead of spawning on the enemy.
   penelopeAttackRight() {
     this.attackHitBox.body.velocity.x = 300
     this.penelope.play('penelope_attack_right', true)
   }
-
+  // used when the player is moved for some other reason. pretty much resets the offset to original offset.
   penelopeOffset() {
     this.penelope.body.setOffset(200, 650)
   }
 
   // makes avocado seed track penelope
   seedFollows () {
+    // for each seed in seed group
     this.seedGroup.children.each( (seed) => {
       console.log("RUNNING")
     const penelopeX = this.penelope.x
+    // if the penelope x coordinate is not equal to the seed x coordinate, the seed will move towards the penelope to try and make this true 
     if (penelopeX != seed.x) {
       this.physics.moveToObject(seed, this.penelope, 110)
     }
@@ -185,7 +189,7 @@ class GameSceneThree extends Phaser.Scene {
 
   // This part I did need help from AI with but I did my best to understand it. Calculates the distance between two points.  first calculates the horizontal distance by subtracting the x-coordinate of the first point from the x-coordinate of the second point giving us A. Ex: in a 20px by 20px screen, the first x coordinate is 3 and the second x coordinate is 15, so 15 - 3 is 12, so the distance on the x axis is 12. then it calculates the verticle distance by doing the same thing, now we have B. Then it uses a sort of pythagorean theorem type equation to calculate the final distance, which we could say is C, or the hypotenouse. It does A squared plus B squared, and then gets the squareroot of that to get C, which is the distance between the two points including x distaance and y distance.
   distanceBetweenPoints(point1, point2) {
-    return Math.sqrt(Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2));
+    return Math.sqrt(Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2));   
   }
   
 
@@ -266,6 +270,7 @@ class GameSceneThree extends Phaser.Scene {
       this.attackHitBox.x = this.penelope.x
       this.attackHitBox.y = this.penelope.y
     }
+    // offset adjustments for if player is facing different directions
     if ((this.cursors.right.isUp && this.cursors.left.isUp) && (this.facingRight === false && this.cursors.space.isUp)) {
       this.penelope.play('penelope_anim_standing_left', true)
       this.penelope.body.setOffset(365, 650)
