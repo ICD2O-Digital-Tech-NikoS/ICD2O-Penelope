@@ -244,8 +244,8 @@ class GameSceneTwo extends Phaser.Scene {
     }
     // if both keys are up, stop the running sound
     if (keyLeftObj.isUp === true && keyRightObj.isUp === true) {
-      this.runAudio.stop();
-      this.running = false;
+      this.runAudio.stop()
+      this.running = false
     }
 
     // walking left plays the walking right animation in reverse
